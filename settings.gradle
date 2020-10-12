@@ -1,0 +1,4 @@
+include ':hilt'
+include ':startup'
+include ':app'
+rootProject.name = "JetpackDemo"
