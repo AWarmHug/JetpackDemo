@@ -1,10 +1,235 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+    </style>
+
+    <style name="AppTheme" parent="BaseTheme">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorButtonNormal">@color/color_button_normal</item>
+        <item name="colorControlNormal">@color/text_button_enable</item>
+
+        <item name="actionBarItemBackground">@color/transparent</item>
+        <item name="selectableItemBackground">@color/transparent</item>
+
+        <item name="android:windowBackground">@color/bg_white</item>
+        <item name="android:windowAnimationStyle">@style/AppTheme.Animation.Activity</item>
+
+        <item name="android:fontFamily">@font/font_default</item>
+
+<!--        <item name="editTextBackground">@drawable/bg_edit_text</item>-->
+<!--        <item name="android:listChoiceIndicatorMultiple">@drawable/selector_check</item>-->
+<!--        <item name="android:listChoiceIndicatorSingle">@drawable/selector_check</item>-->
+
+        <item name="toolbarStyle">@style/AppTheme.Toolbar</item>
+        <item name="seekBarStyle">@style/AppTheme.SeekBar</item>
+        <item name="checkboxStyle">@style/AppTheme.CheckBox</item>
+        <item name="editTextStyle">@style/AppTheme.EditText</item>
+        <item name="buttonStyle">@style/AppTheme.Button</item>
+        <item name="buttonBarButtonStyle">@style/AppTheme.Button.ButtonBar.AlertDialog</item>
+
+        <item name="android:textAppearance">@style/AppTheme.TextAppearance</item>
+        <item name="android:textAppearanceButton">@style/AppTheme.TextAppearance.Button</item>
+
+        <item name="android:textViewStyle">@style/AppTheme.TextView</item>
+        <item name="alertDialogStyle">@style/AppTheme.AlertDialog</item>
+        <item name="alertDialogTheme">@style/AppTheme.AlertDialog.ThemeOverlay</item>
+
+        <item name="android:scrollbars">none</item>
+
+    </style>
+
+
+    <style name="AppTheme.FitStateBar" />
+
+    <style name="AppTheme.FitStateBar.Splash">
+        <item name="android:windowBackground">@drawable/ic_launcher_background</item>
+    </style>
+
+    <style name="AppTheme.Read">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+
+    <style name="AppTheme.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:id">@id/toolbar</item>
+        <item name="navigationIcon">@android:drawable/ic_input_add</item>
+        <item name="android:background">@drawable/bg_toolbar</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="maxButtonHeight">48dp</item>
+        <item name="contentInsetStart">0dp</item>
+        <item name="contentInsetStartWithNavigation">0dp</item>
+    </style>
+
+
+    <style name="ToolbarThemeWhite" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">#09bb07</item>
+    </style>
+
+    <style name="AppTheme.BaseButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/bg_button_accent</item>
+        <item name="android:minHeight">36dp</item>
+    </style>
+
+    <style name="AppTheme.Button" parent="AppTheme.BaseButton">
+
+    </style>
+
+    <style name="AppTheme.Button.Accent" parent="AppTheme.Button">
+        <item name="android:background">@drawable/selector_button_accent</item>
+    </style>
+
+
+    <style name="AppTheme.TextView" parent="@android:style/Widget.TextView">
+        <item name="android:textAppearance">@style/AppTheme.TextAppearance</item>
+    </style>
+
+    <style name="AppTheme.TextView.Toolbar" parent="TextAppearance.AppCompat.Title">
+        <item name="android:id">@id/toolbar_title</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textAppearance">@style/AppTheme.TextAppearance</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <style name="AppTheme.CardView" parent="CardView.Light">
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardCornerRadius">4dp</item>
+        <item name="android:layout_marginLeft">@dimen/cardElevationMargin</item>
+        <item name="android:layout_marginRight">@dimen/cardElevationMargin</item>
+        <item name="cardElevation">1dp</item>
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="cardUseCompatPadding">false</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+    </style>
+
+    <style name="AppTheme.TextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_dark_light</item>
+        <item name="android:fontFamily">@font/font_default</item>
+    </style>
+
+
+    <style name="AppTheme.TextAppearance.Button" parent="TextAppearance.AppCompat.Widget.Button">
+        <item name="android:fontFamily">@font/font_default</item>
+    </style>
+
+
+    <style name="AppTheme.SeekBar" parent="Widget.AppCompat.SeekBar">
+    </style>
+
+    <style name="AppTheme.CheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+    </style>
+
+    <style name="AppTheme.EditText" parent="Widget.AppCompat.EditText">
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="AppTheme.ProgressBar.Horizontal" parent="Widget.AppCompat.ProgressBar.Horizontal">
+    </style>
+
+    <style name="AppTheme.RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+
+
+    </style>
+
+
+    <style name="AppTheme.RadioButton.Vertical">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/text_store_rb</item>
+        <item name="android:drawablePadding">16dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingBottom">16dp</item>
+    </style>
+
+
+    <!-- 切换的特效 Android6.0默认特效-->
+    <style name="AppTheme.Animation.Activity" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/default_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/no_anim</item>
+        <item name="android:activityCloseEnterAnimation">@anim/no_anim</item>
+        <item name="android:activityCloseExitAnimation">@anim/default_exit</item>
+    </style>
+
+    <style name="AppTheme.Animation.Dialog" parent="Animation.AppCompat.Dialog" />
+
+    <style name="AppTheme.Animation.Dialog.Bottom">
+        <item name="android:windowEnterAnimation">@anim/popup_in</item>
+        <item name="android:windowExitAnimation">@anim/popup_out</item>
+    </style>
+
+
+    <style name="AppTheme.Dialog" parent="android:Theme.Dialog">
+        <item name="buttonStyle">@style/AppTheme.Button</item>
+    </style>
+
+    <style name="AppTheme.ProgressDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">false</item>
+        <!--模糊-->
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+
+    <style name="AppTheme.Dialog.Transparent">
+
+        <!--设置全屏，去除stateBar-->
+        <!--<item name="android:windowFullscreen">true</item>-->
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 浮于Activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- Dialog以外的区域模糊效果 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+
+    </style>
+
+    <style name="AppTheme.Dialog.Transparent.BuyInfo">
+        <item name="android:windowAnimationStyle">@style/AppTheme.Animation.Dialog.Bottom</item>
+
+    </style>
+
+    <style name="AppTheme.Button.ButtonBar.AlertDialog" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">?attr/colorAccent</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">@color/transparent</item>
+    </style>
+
+    <style name="AppTheme.AlertDialog" parent="AlertDialog.AppCompat.Light">
+    </style>
+
+    <style name="AppTheme.AlertDialog.ThemeOverlay" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="android:windowMinWidthMinor">90%</item>
+    </style>
+
+    <style name="AppTheme.AlertDialog.ThemeOverlay.Share">
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowMinWidthMinor">100%</item>
+    </style>
+
+    <style name="AppTheme.AlertDialog.ThemeOverlay.DialogAdver">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowMinWidthMinor">65%</item>
     </style>
 
 </resources>
