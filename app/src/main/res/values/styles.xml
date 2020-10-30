@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="BaseTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
 
     </style>
 
@@ -10,6 +10,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorButtonNormal">@color/color_button_normal</item>
         <item name="colorControlNormal">@color/text_button_enable</item>
+        <item name="colorOnPrimary">@color/text_white</item>
 
         <item name="actionBarItemBackground">@color/transparent</item>
         <item name="selectableItemBackground">@color/transparent</item>
@@ -17,11 +18,13 @@
         <item name="android:windowBackground">@color/bg_white</item>
         <item name="android:windowAnimationStyle">@style/AppTheme.Animation.Activity</item>
 
+        <item name="textAppearanceCaption">@style/TextAppearance.App.Caption</item>
+
         <item name="android:fontFamily">@font/font_default</item>
 
-<!--        <item name="editTextBackground">@drawable/bg_edit_text</item>-->
-<!--        <item name="android:listChoiceIndicatorMultiple">@drawable/selector_check</item>-->
-<!--        <item name="android:listChoiceIndicatorSingle">@drawable/selector_check</item>-->
+        <!--        <item name="editTextBackground">@drawable/bg_edit_text</item>-->
+        <!--        <item name="android:listChoiceIndicatorMultiple">@drawable/selector_check</item>-->
+        <!--        <item name="android:listChoiceIndicatorSingle">@drawable/selector_check</item>-->
 
         <item name="toolbarStyle">@style/AppTheme.Toolbar</item>
         <item name="seekBarStyle">@style/AppTheme.SeekBar</item>
@@ -29,6 +32,7 @@
         <item name="editTextStyle">@style/AppTheme.EditText</item>
         <item name="buttonStyle">@style/AppTheme.Button</item>
         <item name="buttonBarButtonStyle">@style/AppTheme.Button.ButtonBar.AlertDialog</item>
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
 
         <item name="android:textAppearance">@style/AppTheme.TextAppearance</item>
         <item name="android:textAppearanceButton">@style/AppTheme.TextAppearance.Button</item>
@@ -124,11 +128,9 @@
     </style>
 
 
-    <style name="AppTheme.SeekBar" parent="Widget.AppCompat.SeekBar">
-    </style>
+    <style name="AppTheme.SeekBar" parent="Widget.AppCompat.SeekBar"></style>
 
-    <style name="AppTheme.CheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
-    </style>
+    <style name="AppTheme.CheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox"></style>
 
     <style name="AppTheme.EditText" parent="Widget.AppCompat.EditText">
         <item name="android:paddingTop">10dp</item>
@@ -136,8 +138,7 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="AppTheme.ProgressBar.Horizontal" parent="Widget.AppCompat.ProgressBar.Horizontal">
-    </style>
+    <style name="AppTheme.ProgressBar.Horizontal" parent="Widget.AppCompat.ProgressBar.Horizontal"></style>
 
     <style name="AppTheme.RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
 
@@ -215,8 +216,7 @@
         <item name="android:background">@color/transparent</item>
     </style>
 
-    <style name="AppTheme.AlertDialog" parent="AlertDialog.AppCompat.Light">
-    </style>
+    <style name="AppTheme.AlertDialog" parent="AlertDialog.AppCompat.Light" />
 
     <style name="AppTheme.AlertDialog.ThemeOverlay" parent="ThemeOverlay.AppCompat.Dialog.Alert">
         <item name="android:windowMinWidthMinor">90%</item>
@@ -230,6 +230,18 @@
     <style name="AppTheme.AlertDialog.ThemeOverlay.DialogAdver">
         <item name="android:windowBackground">@color/transparent</item>
         <item name="android:windowMinWidthMinor">65%</item>
+    </style>
+
+    <style name="Bottom" parent="Widget.Design.BottomNavigationView">
+
+    </style>
+
+    <style name="TextAppearance.App.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+
     </style>
 
 </resources>

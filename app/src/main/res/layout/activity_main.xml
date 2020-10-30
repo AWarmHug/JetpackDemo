@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="com.bingo.jetpackdemo.MainViewModel" />
     </data>
 
     <LinearLayout
@@ -20,9 +23,10 @@
             android:layout_weight="1" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/nav"
+            android:id="@+id/bottomNav"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:menu="@menu/main_nav" />
 
     </LinearLayout>
 </layout>

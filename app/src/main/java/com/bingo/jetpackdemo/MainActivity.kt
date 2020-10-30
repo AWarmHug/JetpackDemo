@@ -1,6 +1,5 @@
 package com.bingo.jetpackdemo
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
@@ -8,33 +7,22 @@ import androidx.lifecycle.lifecycleScope
 import com.bingo.jetpackdemo.base.DataBindingAppCompatActivity
 import com.bingo.jetpackdemo.data.remote.GankService
 import com.bingo.jetpackdemo.databinding.ActivityMainBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import java.lang.Exception
 
 class MainActivity : DataBindingAppCompatActivity() {
 
     private val mBinding: ActivityMainBinding by binding(R.layout.activity_main)
+    private val mViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         mBinding.apply {
-            Log.d(TAG, "onCreate: ${Thread.currentThread()}")
-            lifecycleScope.launch {
+            vm = mViewModel
+            mViewModel.banners().observe(this@MainActivity, {
                 Log.d(TAG, "onCreate: ${Thread.currentThread()}")
-                val response = GankService.create().banners();
-                if (response.isSuccessful) {
-                    val baseResponse = response.body()
-                    Log.d(TAG, "onCreate: ${Thread.currentThread()}")
-
-                    Log.d(TAG, "onCreate: ${baseResponse!!.status}")
-                } else {
-
-                }
-            }
-
+            })
         }
     }
 

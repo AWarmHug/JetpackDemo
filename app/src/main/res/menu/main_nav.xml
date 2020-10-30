@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/home"
-
-        />
+    <item
+        android:id="@+id/home"
+        android:checked="true"
+        android:icon="@drawable/ic_vec_home"
+        android:title="首页" />
+    <item
+        android:id="@+id/type"
+        android:icon="@drawable/ic_vec_type"
+        android:title="分类" />
+    <item
+        android:id="@+id/favorites"
+        android:icon="@drawable/ic_vec_favorites"
+        android:title="收藏" />
 </menu>
