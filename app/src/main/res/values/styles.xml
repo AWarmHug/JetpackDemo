@@ -1,6 +1,7 @@
 <resources>
 
     <style name="BaseTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:overScrollMode">never</item>
 
     </style>
 
@@ -10,8 +11,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorButtonNormal">@color/color_button_normal</item>
         <item name="colorControlNormal">@color/text_button_enable</item>
-        <item name="colorOnPrimary">@color/text_white</item>
-
+        <item name="colorOnPrimary">@color/white</item>
         <item name="actionBarItemBackground">@color/transparent</item>
         <item name="selectableItemBackground">@color/transparent</item>
 
@@ -19,7 +19,7 @@
         <item name="android:windowAnimationStyle">@style/AppTheme.Animation.Activity</item>
 
         <item name="textAppearanceCaption">@style/TextAppearance.App.Caption</item>
-
+        <item name="titleTextAppearance">@style/TextAppearance.App.Title</item>
         <item name="android:fontFamily">@font/font_default</item>
 
         <!--        <item name="editTextBackground">@drawable/bg_edit_text</item>-->
@@ -33,6 +33,8 @@
         <item name="buttonStyle">@style/AppTheme.Button</item>
         <item name="buttonBarButtonStyle">@style/AppTheme.Button.ButtonBar.AlertDialog</item>
         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+        <item name="tabStyle">@style/Widget.App.TabLayout</item>
+        <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
 
         <item name="android:textAppearance">@style/AppTheme.TextAppearance</item>
         <item name="android:textAppearanceButton">@style/AppTheme.TextAppearance.Button</item>
@@ -240,7 +242,20 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="TextAppearance.App.Title" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+
+    </style>
+
+    <style name="Widget.App.TabLayout" parent="Widget.MaterialComponents.TabLayout.Colored">
+        <item name="android:elevation">4dp</item>
+    </style>
+
+    <style name="Widget.App.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="tint">@color/white</item>
 
     </style>
 

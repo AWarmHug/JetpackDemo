@@ -1,6 +1,16 @@
 package com.bingo.jetpackdemo.data.entity
 
-data class Result<T>(val status: Int, val data: T)
+data class Result<T>(val status: Int, val msg: String?, val data: T?, val counts: Int) {
+    companion object {
+        private const val SUCCESS = 100
+    }
+
+    val isSuccess: Boolean
+        get() {
+            return status == SUCCESS
+        }
+
+}
 
 data class Banner(
     val image: String,
@@ -8,7 +18,7 @@ data class Banner(
     val url: String
 )
 
-data class Category(
+data class Type(
     val _id: String,
     val coverImageUrl: String,
     val desc: String,

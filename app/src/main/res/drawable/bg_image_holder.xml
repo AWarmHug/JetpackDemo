@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/bg_inverse" />
+            <corners android:radius="4dp"/>
+        </shape>
+    </item>
+    <item
+        android:bottom="50dp"
+        android:drawable="@drawable/ic_vec_image_holder"
+        android:left="50dp"
+        android:right="50dp"
+        android:top="50dp" />
+
+</layer-list>

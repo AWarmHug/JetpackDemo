@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <external-path
+        name="external_root"
+        path="com.bingo.jetpackdemo/" />
+
+    <external-path
+        name="data_root"
+        path="Android/data/com.bingo.jetpackdemo/" />
+
+
+</paths>

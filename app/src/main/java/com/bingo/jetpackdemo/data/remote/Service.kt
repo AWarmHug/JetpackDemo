@@ -8,6 +8,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 
+const val category_ARTICLE = "Article"
+
+enum class Category(val title: String, val api: String) {
+    ARTICLE("文章", "Article"),
+    GANHUO("干货", "GanHuo"),
+    GIRL("尤物", "Girl"),
+}
 
 interface GankService {
 
@@ -35,8 +42,8 @@ interface GankService {
      * <a https://gank.io/api/v2/categories/Girl</a>
      * 妹子图类型只有一项: 且为Girl
      */
-    @GET("categories/{type}")
-    suspend fun categories(@Path("type") type: String): Result<List<Category>>
+    @GET("categories/{category}")
+    suspend fun categories(@Path("category") category: String): Result<List<Type>>
 
     /**
      * 分类数据 API
@@ -59,7 +66,7 @@ interface GankService {
     suspend fun data(
         @Path("category") category: String,
         @Path("type") type: String,
-        @Path("page") page: String
+        @Path("page") page: Int
     ): Result<List<Article>>
 
     /**
@@ -162,7 +169,7 @@ interface GankService {
         fun create(): GankService {
 
             val logger = HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BASIC
+                level = HttpLoggingInterceptor.Level.BODY
             }
 
             val client = OkHttpClient.Builder()
