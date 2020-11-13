@@ -27,6 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.core.articledetail.ArticleDetailActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -41,8 +42,8 @@
         <provider
             android:name=".utils.ContextContentProvider"
             android:authorities="${applicationId}.ContextContentProvider"
-            android:multiprocess="true"
-            android:exported="false" />
+            android:exported="false"
+            android:multiprocess="true" />
 
     </application>
 

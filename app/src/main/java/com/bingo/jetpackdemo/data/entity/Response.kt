@@ -1,5 +1,8 @@
 package com.bingo.jetpackdemo.data.entity
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
 data class Result<T>(val status: Int, val msg: String?, val data: T?, val counts: Int) {
     companion object {
         private const val SUCCESS = 100
@@ -26,6 +29,7 @@ data class Type(
     val type: String
 )
 
+@Parcelize
 data class Article(
     val _id: String,
     val author: String,
@@ -40,7 +44,15 @@ data class Article(
     val type: String,
     val url: String,
     val views: Int
-)
+) : Parcelable {
+
+    fun getLikeCountsString(): String = "$likeCounts 人"
+
+    fun getViewsString(): String = "$views 人"
+
+    fun getPublishedAtString(): String = publishedAt.substring(5,16)
+
+}
 
 data class ArticleDetail(
     val _id: String,

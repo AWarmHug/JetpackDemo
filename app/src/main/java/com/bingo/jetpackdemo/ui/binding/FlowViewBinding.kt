@@ -65,7 +65,7 @@ private fun createImageView(
     val imageView = ImageView(context)
     imageView.scaleType = ImageView.ScaleType.CENTER_CROP
     val height: Int = if (horizontalSize == 1) {
-        (context.widthPixels - (24).dp) * (2 / 3)
+        (context.widthPixels - (24).dp) * 2 / 3
     } else {
         //2或3的情况都按照3来处理
         getIVHeight(context, 3)

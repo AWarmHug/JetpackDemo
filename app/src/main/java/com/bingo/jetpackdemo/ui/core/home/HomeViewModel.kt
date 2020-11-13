@@ -28,9 +28,9 @@ class HomeViewModel : ViewModel() {
     }.asLiveData()
 
     fun random(): LiveData<List<Article>> = flow {
-        val androidResult = GankService.create().random(Category.ARTICLE.title, "Android")
-        val iOSResult = GankService.create().random(Category.ARTICLE.title, "iOS")
-        val flutterResult = GankService.create().random(Category.ARTICLE.title, "Flutter")
+        val androidResult = GankService.create().random(Category.ARTICLE.api, "Android")
+        val iOSResult = GankService.create().random(Category.ARTICLE.api, "iOS")
+        val flutterResult = GankService.create().random(Category.ARTICLE.api, "Flutter")
         Log.d("*********", "androidResult: ${androidResult.status},${androidResult.msg}")
         Log.d("*********", "androidResult: ${iOSResult.status},${iOSResult.msg}")
         Log.d("*********", "androidResult: ${flutterResult.status},${flutterResult.msg}")

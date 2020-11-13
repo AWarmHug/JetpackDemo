@@ -16,6 +16,7 @@ import com.bingo.jetpackdemo.base.DataBindingFragment
 import com.bingo.jetpackdemo.data.entity.Article
 import com.bingo.jetpackdemo.databinding.HomeFragmentBinding
 import com.bingo.jetpackdemo.databinding.HomeItemAdapterItemBinding
+import com.bingo.jetpackdemo.ui.core.ArticleListAdapter
 import com.bingo.jetpackdemo.ui.imageloader.GlideImageLoader
 import com.chebada.utils.ktx.dp
 import com.chebada.utils.ktx.widthPixels
@@ -25,7 +26,7 @@ class HomeFragment() : DataBindingFragment() {
 
     private lateinit var binding: HomeFragmentBinding
     private val viewModel: HomeViewModel by viewModels()
-    private val listAdapter: ListAdapter = ListAdapter()
+    private val listAdapter: ArticleListAdapter = ArticleListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,37 +66,5 @@ class HomeFragment() : DataBindingFragment() {
         }
     }
 
-}
-
-private class ListAdapter : RecyclerView.Adapter<ListAdapter.VH>() {
-
-    val list = mutableListOf<Article>()
-
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        val binding: HomeItemAdapterItemBinding = DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context),
-            R.layout.home_item_adapter_item,
-            parent,
-            false
-        )
-        return VH(binding)
-    }
-
-    override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.setArticle(list[position])
-    }
-
-    override fun getItemCount(): Int {
-        return list.size
-    }
-
-    class VH(val binding: HomeItemAdapterItemBinding) : RecyclerView.ViewHolder(binding.root) {
-
-        fun setArticle(article: Article) {
-            binding.article = article
-        }
-
-    }
 }
 
