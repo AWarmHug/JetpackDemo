@@ -3,21 +3,31 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="com.bingo.jetpackdemo.ui.core.gank.TypeItemViewModel" />
+
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <com.bingo.jetpackdemo.ui.widget.recyclerview.LoadRecyclerView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <com.bingo.jetpackdemo.ui.widget.loading.LoadingLayout
             android:id="@+id/loadingLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </FrameLayout>
 </layout>

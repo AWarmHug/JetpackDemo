@@ -17,9 +17,10 @@
     <color name="text_inverse">#AEAEAE</color>
     <color name="text_yellow">#FFBC3D</color>
     <color name="text_white">@color/white</color>
+    <color name="text_grey">#D7D7D7</color>
 
 
-    <color name="line">#d6d6d6</color>
+    <color name="line">@color/bg_grey</color>
 
     <color name="dialog_icon">#acc0cf</color>
     <color name="dialog_icon_half">#8ea8c0d0</color>

@@ -28,6 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.core.articledetail.ArticleDetailActivity" />
+        <activity android:name=".ui.core.search.SearchActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

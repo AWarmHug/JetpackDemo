@@ -54,6 +54,42 @@ class LoadingView @JvmOverloads constructor(
 
 }
 
+class LoadingViewH @JvmOverloads constructor(
+    context: Context,
+    attributeSet: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : FrameLayout(context, attributeSet, defStyleAttr), Loading {
+    private val binding = DataBindingUtil.inflate<LoadingViewBinding>(
+        LayoutInflater.from(context),
+        R.layout.loading_view_h, this, true
+    )
+
+    override fun start() {
+        visibility = VISIBLE
+        binding.lottie.setAnimation(R.raw.loading)
+        binding.lottie.repeatCount = ValueAnimator.INFINITE
+        binding.lottie.playAnimation()
+        binding.tvMsg.text = "正在加载..."
+    }
+
+    override fun showFail() {
+        visibility = VISIBLE
+        binding.lottie.setAnimation(R.raw.loading_error)
+        binding.lottie.repeatCount = 1
+        binding.lottie.playAnimation()
+        binding.tvMsg.text = "加载失败！！！"
+    }
+
+    override fun dismiss() {
+        visibility = GONE
+        binding.lottie.setAnimation(R.raw.loading)
+        binding.lottie.repeatCount = 0
+        binding.lottie.pauseAnimation()
+        binding.tvMsg.text = "正在加载..."
+    }
+
+}
+
 class LoadingLayout @JvmOverloads constructor(
     context: Context,
     attributeSet: AttributeSet? = null,

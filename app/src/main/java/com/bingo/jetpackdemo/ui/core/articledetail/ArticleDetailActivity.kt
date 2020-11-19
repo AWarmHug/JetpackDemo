@@ -2,28 +2,28 @@ package com.bingo.jetpackdemo.ui.core.articledetail
 
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.TextUtils
 import android.view.View
 import android.webkit.WebView
 import com.bingo.jetpackdemo.R
 import com.bingo.jetpackdemo.base.DataBindingAppCompatActivity
-import com.bingo.jetpackdemo.data.entity.Article
 import com.bingo.jetpackdemo.databinding.ArticleDetailActivityBinding
-import com.bingo.jetpackdemo.ui.widget.loading.LoadingDialog
 import com.bingo.jetpackdemo.ui.widget.web.AppWebChromeClient
 import com.bingo.jetpackdemo.ui.widget.web.AppWebViewClient
+import kotlinx.android.parcel.Parcelize
 
 class ArticleDetailActivity : DataBindingAppCompatActivity() {
 
     private val binding: ArticleDetailActivityBinding by binding(R.layout.article_detail_activity)
-    private val article: Article? by lazy {
-        intent.getParcelableExtra("article")
+    private val params: Params? by lazy {
+        intent.getParcelableExtra("params")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.apply {
-            article?.apply {
+            params?.apply {
                 toolbar.title = title
 
                 val appWebViewClient = AppWebViewClient()
@@ -61,9 +61,12 @@ class ArticleDetailActivity : DataBindingAppCompatActivity() {
                 })
                 web.webChromeClient = appWebChromeClient
                 web.webViewClient = appWebViewClient
-                web.loadUrl(url)
+                web.loadUrl(link)
             }
         }
     }
+
+    @Parcelize
+    class Params(val title: String, val link: String) : Parcelable
 
 }

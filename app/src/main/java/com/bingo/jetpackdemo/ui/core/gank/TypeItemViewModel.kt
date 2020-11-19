@@ -1,8 +1,6 @@
-package com.bingo.jetpackdemo.ui.core.type
+package com.bingo.jetpackdemo.ui.core.gank
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.*
 import com.bingo.jetpackdemo.data.entity.Article
 import com.bingo.jetpackdemo.data.entity.Result
 import com.bingo.jetpackdemo.data.remote.GankService
@@ -10,9 +8,15 @@ import kotlinx.coroutines.flow.*
 
 class TypeItemViewModel : ViewModel() {
 
+
     fun data(category: String, type: String, page: Int): LiveData<Result<List<Article>>> = flow {
-        val result = GankService.create().data(category, type, page)
-        emit(result)
+        try {
+            val result = GankService.create().data(category, type, page)
+            emit(result)
+        }catch ( cause:Exception){
+            print(cause.toString())
+
+        }
     }
         .catch { cause ->
 

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.bingo.jetpackdemo.ui.core.gank.TypeItemViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:scrollbars="none">
+
+                <RadioGroup
+                    android:id="@+id/treeList1"
+                    android:layout_width="68dp"
+                    android:layout_height="wrap_content" />
+            </ScrollView>
+
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/colorAccent"
+                android:scrollbars="none">
+
+                <RadioGroup
+                    android:id="@+id/treeList2"
+                    android:layout_width="68dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent" />
+            </ScrollView>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <com.bingo.jetpackdemo.ui.widget.recyclerview.LoadRecyclerView
+                    android:id="@+id/list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <com.bingo.jetpackdemo.ui.widget.loading.LoadingLayout
+                    android:id="@+id/loadingList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <com.bingo.jetpackdemo.ui.widget.loading.LoadingLayout
+            android:id="@+id/loadingLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:visibility="gone" />
+
+    </FrameLayout>
+
+</layout>

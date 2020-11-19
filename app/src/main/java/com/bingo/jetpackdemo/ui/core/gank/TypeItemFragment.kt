@@ -1,10 +1,9 @@
-package com.bingo.jetpackdemo.ui.core.type
+package com.bingo.jetpackdemo.ui.core.gank
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,15 +13,13 @@ import com.bingo.jetpackdemo.data.entity.Type
 import com.bingo.jetpackdemo.data.remote.Category
 import com.bingo.jetpackdemo.databinding.TypeItemFragmentBinding
 import com.bingo.jetpackdemo.ui.core.ArticleListAdapter
-import com.bingo.jetpackdemo.ui.widget.decoration.LineItemDecoration
-import com.chebada.utils.ktx.dp
 
 class TypeItemFragment(val type: Type, val category: Category) : DataBindingFragment() {
 
     private lateinit var binding: TypeItemFragmentBinding
     private val viewModel: TypeItemViewModel by viewModels()
     private val listAdapter = ArticleListAdapter()
-
+    private var page = 0
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,19 +40,47 @@ class TypeItemFragment(val type: Type, val category: Category) : DataBindingFrag
 //                ContextCompat.getColor(binding.list.context, R.color.bg_grey)
 //            )
 //        )
+        binding.swipe.setOnRefreshListener {
+            page = 0
+            data(page)
+        }
         binding.list.itemAnimator = DefaultItemAnimator()
         binding.list.layoutManager = LinearLayoutManager(context)
+        binding.list.setOnLoadMoreListener {
+            page += 1
+            data(page)
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.loadingLayout.start()
-        viewModel.data(category.api, type.type, 0).observe(viewLifecycleOwner, {
+        data(page)
+    }
+
+    private fun data(page: Int) {
+        if (page == 0) {
+            binding.loadingLayout.start()
+        }
+
+        viewModel.data(category.api, type.type, page).observe(viewLifecycleOwner, {
             it.data?.apply {
-                listAdapter.list.clear()
-                listAdapter.list.addAll(this)
-                listAdapter.notifyItemRangeInserted(0, size)
-                binding.loadingLayout.dismiss()
+                if (isNotEmpty()) {
+                    if (page == 0) {
+                        listAdapter.list.clear()
+                        listAdapter.list.addAll(this)
+                        listAdapter.notifyDataSetChanged()
+                        binding.loadingLayout.dismiss()
+                        binding.swipe.isRefreshing = false
+                    } else {
+                        listAdapter.list.addAll(this)
+                        listAdapter.notifyDataSetChanged()
+                    }
+                    binding.list.isLoadMoreAble = true
+                } else {
+                    binding.list.isLoadMoreAble = false
+                }
+            } ?: apply {
+                binding.loadingLayout.showFail()
             }
         })
     }

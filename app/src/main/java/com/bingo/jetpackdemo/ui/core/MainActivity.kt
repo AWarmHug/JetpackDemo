@@ -7,10 +7,11 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.bingo.jetpackdemo.R
 import com.bingo.jetpackdemo.base.DataBindingAppCompatActivity
 import com.bingo.jetpackdemo.databinding.MainActivityBinding
-import com.bingo.jetpackdemo.ui.core.favorites.FavoritesFragment
 import com.bingo.jetpackdemo.ui.core.girl.GirlFragment
 import com.bingo.jetpackdemo.ui.core.home.HomeFragment
-import com.bingo.jetpackdemo.ui.core.type.TypeFragment
+import com.bingo.jetpackdemo.ui.core.gank.TypeFragment
+import com.bingo.jetpackdemo.ui.core.tree.TreeArticleFragment
+import com.bingo.jetpackdemo.ui.core.tree.TreeFragment
 
 class MainActivity : DataBindingAppCompatActivity() {
 
@@ -27,8 +28,9 @@ class MainActivity : DataBindingAppCompatActivity() {
                 when (it.itemId) {
                     R.id.home -> pager.setCurrentItem(0, false)
                     R.id.type -> pager.setCurrentItem(1, false)
-                    R.id.girl -> pager.setCurrentItem(2, false)
-                    else -> pager.setCurrentItem(2, false)
+                    R.id.gank -> pager.setCurrentItem(2, false)
+                    R.id.girl -> pager.setCurrentItem(3, false)
+                    else -> pager.setCurrentItem(3, false)
                 }
                 return@setOnNavigationItemSelectedListener true
             }
@@ -51,8 +53,9 @@ private class FragmentAdapter(mainActivity: MainActivity) : FragmentStateAdapter
 
         return when (position) {
             0 -> HomeFragment.newInstance()
-            1 -> TypeFragment.newInstance()
-            2 -> GirlFragment.newInstance()
+            1 -> TreeFragment.newInstance()
+            2 -> TypeFragment.newInstance()
+            3 -> GirlFragment.newInstance()
             else -> GirlFragment.newInstance()
         }
     }

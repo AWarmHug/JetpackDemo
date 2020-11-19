@@ -1,4 +1,4 @@
-package com.bingo.jetpackdemo.ui.widget.decoration;
+package com.bingo.jetpackdemo.ui.widget.recyclerview.decoration;
 
 import android.content.Context;
 import android.content.res.TypedArray;

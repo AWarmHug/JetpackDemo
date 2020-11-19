@@ -38,7 +38,7 @@ class ArticleListAdapter : RecyclerView.Adapter<ArticleListAdapter.VH>() {
             binding.article = article
             binding.root.setOnClickListener {
                 val intent = Intent(binding.root.context, ArticleDetailActivity::class.java)
-                intent.putExtra("article", article)
+                intent.putExtra("params", ArticleDetailActivity.Params(article.title, article.url))
                 binding.root.context.startActivity(intent)
             }
         }

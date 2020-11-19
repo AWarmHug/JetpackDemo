@@ -25,9 +25,13 @@
             <FrameLayout
                 android:id="@+id/frame_banner"
                 android:layout_width="match_parent"
-                android:layout_height="144dp"
-                android:background="@color/blue"
+                android:layout_height="168dp"
                 app:layout_scrollFlags="scroll">
+
+                <com.youth.banner.Banner
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
             </FrameLayout>
 
@@ -39,6 +43,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:layout_behavior=".ui.widget.ToolbarBehavior"
+            app:navigationIcon="@null"
+            app:menu="@menu/main_search"
+            app:title="玩安卓" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

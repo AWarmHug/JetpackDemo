@@ -1,4 +1,4 @@
-package com.bingo.jetpackdemo.ui.core.type
+package com.bingo.jetpackdemo.ui.core.gank
 
 import android.os.Bundle
 import android.view.LayoutInflater
