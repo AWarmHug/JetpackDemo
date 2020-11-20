@@ -17,7 +17,8 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:navigationIcon="@drawable/ic_vec_return" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -32,7 +33,7 @@
             <com.bingo.jetpackdemo.ui.widget.loading.LoadingLayout
                 android:id="@+id/loadingLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
 
             <ProgressBar
                 android:id="@+id/pb"

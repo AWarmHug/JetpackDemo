@@ -20,9 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="16dp"
         android:paddingTop="12dp"
-        android:paddingRight="16dp"
         android:paddingBottom="12dp">
 
         <LinearLayout
@@ -65,7 +63,7 @@
             android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@{article.title}"
+            android:text="@{Html.fromHtml(article.title)}"
             android:textAppearance="@style/TextAppearance.App.Title"
             android:textSize="14sp"
             tools:text="【Flutter高级玩法】 贝塞尔曲线的表象认知" />

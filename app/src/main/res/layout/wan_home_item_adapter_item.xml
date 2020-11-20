@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
+
+        <import type="android.text.Html" />
 
         <variable
             name="article"
@@ -68,10 +71,22 @@
                 android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="@{article.title}"
+                android:text="@{Html.fromHtml(article.title)}"
                 android:textAppearance="@style/TextAppearance.App.Title"
                 tools:text="【Flutter高级玩法】 贝塞尔曲线的表象认知" />
 
+            <TextView
+                android:id="@+id/tvDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@{Html.fromHtml(article.desc)}"
+                android:textAppearance="@style/TextAppearance.App.Body"
+                android:textSize="12sp"
+                android:visibility="@{article.desc.length()!=0?View.VISIBLE:View.GONE}"
+                tools:text="【Flutter高级玩法】 贝塞尔曲线的表象认知" />
 
             <LinearLayout
                 android:layout_width="match_parent"
