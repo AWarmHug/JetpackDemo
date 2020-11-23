@@ -2,12 +2,12 @@ package com.bingo.jetpackdemo.ui.core.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bingo.jetpackdemo.R
@@ -18,7 +18,7 @@ import com.bingo.jetpackdemo.databinding.WanHomeItemAdapterItemBinding
 import com.bingo.jetpackdemo.ui.core.articledetail.ArticleDetailActivity
 import com.bingo.jetpackdemo.ui.core.search.SearchActivity
 import com.bingo.jetpackdemo.ui.widget.banner.ImageAdapter
-import com.google.android.material.appbar.AppBarLayout
+import com.bingo.jetpackdemo.ui.widget.loading.Loading
 import com.youth.banner.indicator.CircleIndicator
 
 class HomeFragment() : DataBindingFragment() {
@@ -58,15 +58,25 @@ class HomeFragment() : DataBindingFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.banners().observe(viewLifecycleOwner, {
-            binding.banner.addBannerLifecycleObserver(viewLifecycleOwner)
-                .setAdapter(ImageAdapter(it.data))
-                .setIndicator(CircleIndicator(context))
-        })
 
-        viewModel.article(0).observe(viewLifecycleOwner, {
+        viewModel.loading.observe(viewLifecycleOwner, Observer {
+            println("*************$it")
+            if (it is Loading.State.Fail) {
+                it.cause.block = { homeContent() }
+            }
+            binding.loading.setState(it)
+        })
+        homeContent()
+    }
+
+    private fun homeContent() {
+        viewModel.homeContent(0).observe(viewLifecycleOwner, {
+            binding.banner.addBannerLifecycleObserver(viewLifecycleOwner)
+                .setAdapter(ImageAdapter(it.banners))
+                .setIndicator(CircleIndicator(context))
+
             listAdapter.list.clear()
-            listAdapter.list.addAll(it.datas)
+            listAdapter.list.addAll(it.articles.datas)
             listAdapter.notifyDataSetChanged()
         })
     }

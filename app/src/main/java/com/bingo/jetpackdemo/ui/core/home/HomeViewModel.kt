@@ -2,31 +2,51 @@ package com.bingo.jetpackdemo.ui.core.home
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import com.bingo.jetpackdemo.AppException
 import com.bingo.jetpackdemo.data.WanRepository
 import com.bingo.jetpackdemo.data.entity.wan.Article
 import com.bingo.jetpackdemo.data.entity.wan.Banner
 import com.bingo.jetpackdemo.data.entity.wan.ListData
 import com.bingo.jetpackdemo.data.entity.wan.WanResponse
 import com.bingo.jetpackdemo.data.remote.WanAndroidService
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
+import com.bingo.jetpackdemo.ui.widget.loading.Loading
+import kotlinx.coroutines.flow.*
 
 class HomeViewModel : ViewModel() {
 
-    fun banners(): LiveData<WanResponse<List<Banner>>> {
-        return WanRepository.getInstance()
+    val loading = MutableLiveData<Loading.State>()
+
+    fun homeContent(pageNum: Int): LiveData<HomeContent> {
+        val bannersFlow = WanRepository.getInstance()
             .banners()
+        val articlesFlow = WanRepository.getInstance()
+            .article(pageNum, null)
+
+        return bannersFlow.zip(articlesFlow) { banners, articles ->
+            return@zip HomeContent(banners, articles)
+        }
+            .onStart {
+                loading.postValue(Loading.State.start)
+            }
+            .onCompletion {
+                loading.postValue(Loading.State.dismiss)
+            }
             .catch { cause ->
-                Log.d("**********", "banners: $cause")
+                if (cause is AppException) {
+                    loading.postValue(Loading.State.fail(cause))
+                } else {
+                    val appException = AppException(cause)
+                    loading.postValue(Loading.State.fail(appException))
+                }
             }
             .asLiveData()
     }
 
     fun article(pageNum: Int): LiveData<ListData<Article>> =
-        WanRepository.getInstance().article(pageNum,null)
+        WanRepository.getInstance().article(pageNum, null)
             .catch { cause ->
                 Log.d("**********", "article: $cause")
             }

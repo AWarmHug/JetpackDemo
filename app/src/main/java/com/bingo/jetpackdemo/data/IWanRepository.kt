@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface IWanRepository {
 
-    fun banners(): Flow<WanResponse<List<Banner>>>
+    fun banners(): Flow<List<Banner>>
 
     fun article(pageNum: Int, cid: String? = null): Flow<ListData<Article>>
 

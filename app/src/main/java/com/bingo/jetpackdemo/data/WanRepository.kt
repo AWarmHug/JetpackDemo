@@ -20,9 +20,9 @@ class WanRepository(val wan: WanAndroidService) : IWanRepository {
 
     }
 
-    override fun banners(): Flow<WanResponse<List<Banner>>> = flow {
-        val wanResponse = wan.banner()
-        emit(wanResponse)
+    override fun banners(): Flow<List<Banner>> = flow {
+        val data = wan.banner().peeling()
+        emit(data)
     }
 
     override fun article(pageNum: Int, cid: String?): Flow<ListData<Article>> = flow {

@@ -104,7 +104,7 @@ class LoadingView @JvmOverloads constructor(
     public override fun fail(cause: AppException) {
         visibility = VISIBLE
         binding.lottie.setAnimation(R.raw.loading_error)
-        binding.lottie.repeatCount = 1
+        binding.lottie.repeatCount = 0
         binding.lottie.playAnimation()
         binding.tvMsg.text = "加载失败！！！"
         binding.root.setOnClickListener {

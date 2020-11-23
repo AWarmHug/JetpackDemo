@@ -10,51 +10,60 @@
 
     </data>
 
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbar"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            app:elevation="0dp">
+            android:layout_height="match_parent">
 
-            <FrameLayout
-                android:id="@+id/frame_banner"
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appbar"
                 android:layout_width="match_parent"
-                android:layout_height="168dp"
-                app:layout_scrollFlags="scroll">
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                app:elevation="0dp">
 
-                <com.youth.banner.Banner
-                    android:id="@+id/banner"
+                <FrameLayout
+                    android:id="@+id/frame_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="168dp"
+                    app:layout_scrollFlags="scroll">
 
-            </FrameLayout>
+                    <com.youth.banner.Banner
+                        android:id="@+id/banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </FrameLayout>
 
 
-        </com.google.android.material.appbar.AppBarLayout>
+            </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                app:layout_behavior=".ui.widget.ToolbarBehavior"
+                app:menu="@menu/main_search"
+                app:navigationIcon="@null"
+                app:title="玩安卓" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <com.bingo.jetpackdemo.ui.widget.loading.LoadingLayout
+            android:id="@+id/loading"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+            android:layout_height="match_parent" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            app:layout_behavior=".ui.widget.ToolbarBehavior"
-            app:navigationIcon="@null"
-            app:menu="@menu/main_search"
-            app:title="玩安卓" />
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
+    </FrameLayout>
 
 </layout>
