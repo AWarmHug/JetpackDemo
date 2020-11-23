@@ -81,7 +81,7 @@ class TypeItemFragment(val type: Type, val category: Category) : DataBindingFrag
                     binding.list.isLoadMoreAble = false
                 }
             } ?: apply {
-                binding.loadingLayout.showFail(EmptyException())
+                binding.loadingLayout.fail(EmptyException())
             }
         })
     }

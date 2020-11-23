@@ -1,16 +1,20 @@
 package com.bingo.jetpackdemo.ui.core.search
 
-import androidx.databinding.ObservableInt
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import com.bingo.jetpackdemo.AppException
 import com.bingo.jetpackdemo.data.WanRepository
 import com.bingo.jetpackdemo.data.dao.AppDataBase
 import com.bingo.jetpackdemo.data.dao.SearchContent
 import com.bingo.jetpackdemo.data.entity.wan.Article
 import com.bingo.jetpackdemo.data.entity.wan.ListData
-import com.bingo.jetpackdemo.ktx.state
 import com.bingo.jetpackdemo.ui.widget.loading.Loading
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.zip
 
 class SearchViewModel : ViewModel() {
 
@@ -23,13 +27,14 @@ class SearchViewModel : ViewModel() {
         val hotKeyFlow = WanRepository.getInstance()
             .hotKey()
 
-        return hotKeyFlow.zip(articleFlow) { hotKey, article ->
-            println("%Tdsnsdndf")
-            return@zip HotContent(hotKey, article)
-        }.zip(recentFlow) { hotContent: HotContent, list: List<SearchContent> ->
-            hotContent.searchContents.addAll(list)
-            return@zip hotContent
-        }
+        return hotKeyFlow
+            .zip(articleFlow) { hotKey, article ->
+                return@zip HotContent(hotKey, article)
+            }
+            .zip(recentFlow) { hotContent: HotContent, list: List<SearchContent> ->
+                hotContent.searchContents.addAll(list)
+                return@zip hotContent
+            }
             .onStart {
                 loading.postValue(Loading.State.start)
             }
@@ -37,7 +42,12 @@ class SearchViewModel : ViewModel() {
                 loading.postValue(Loading.State.dismiss)
             }
             .catch { cause ->
-                loading.postValue(Loading.State.fail(cause))
+                if (cause is AppException) {
+                    loading.postValue(Loading.State.fail(cause))
+                } else {
+                    val appException = AppException(cause)
+                    loading.postValue(Loading.State.fail(appException))
+                }
             }
             .asLiveData()
     }
@@ -53,7 +63,12 @@ class SearchViewModel : ViewModel() {
                 loading.postValue(Loading.State.dismiss)
             }
             .catch { cause ->
-                loading.postValue(Loading.State.fail(cause))
+                if (cause is AppException) {
+                    loading.postValue(Loading.State.fail(cause))
+                } else {
+                    val appException = AppException(cause)
+                    loading.postValue(Loading.State.fail(appException))
+                }
             }
             .asLiveData()
     }

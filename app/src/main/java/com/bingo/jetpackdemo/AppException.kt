@@ -1,6 +1,10 @@
 package com.bingo.jetpackdemo
 
-open class AppException(message: String) : Exception(message) {
+
+open class AppException : RuntimeException {
+    var block: (() -> Unit?)? = null
+    constructor(message: String) : super(message)
+    constructor(cause: Throwable) : super(cause)
 
 }
 

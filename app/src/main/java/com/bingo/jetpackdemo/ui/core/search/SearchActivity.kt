@@ -58,9 +58,33 @@ class SearchActivity : DataBindingAppCompatActivity() {
         }
         viewViewModel.loading.observe(this, Observer {
             println("*************$it")
+            if (it is Loading.State.Fail){
+                it.cause.block= { hotContent() }
+            }
             binding.loading.setState(it)
         })
 
+        hotContent()
+
+        binding.search.binding.btnSearch.setOnClickListener {
+            KeyboardUtils.hideSoftInput(this)
+            val searchContent = SearchContent(
+                binding.search.binding.etContent.text.toString(),
+                System.currentTimeMillis()
+            )
+            AppDataBase.getInstance().searchContentDao().addSearchContent(searchContent)
+            viewViewModel.query(0, binding.search.binding.etContent.text.toString())
+                .observe(this, Observer {
+                    listAdapter.list.clear()
+                    listAdapter.list.addAll(it.datas)
+                    listAdapter.notifyDataSetChanged()
+                    binding.list.visibility = View.VISIBLE
+                })
+        }
+
+    }
+
+    private fun hotContent() {
         viewViewModel.hotContent().observe(this@SearchActivity, Observer {
             if (it.searchContents.isNotEmpty()) {
                 binding.tvRecent.visibility = View.VISIBLE
@@ -114,23 +138,6 @@ class SearchActivity : DataBindingAppCompatActivity() {
                 binding.linearHotArticle.addView(articleBinding.root)
             }
         })
-
-        binding.search.binding.btnSearch.setOnClickListener {
-            KeyboardUtils.hideSoftInput(this)
-            val searchContent = SearchContent(
-                binding.search.binding.etContent.text.toString(),
-                System.currentTimeMillis()
-            )
-            AppDataBase.getInstance().searchContentDao().addSearchContent(searchContent)
-            viewViewModel.query(0, binding.search.binding.etContent.text.toString())
-                .observe(this, Observer {
-                    listAdapter.list.clear()
-                    listAdapter.list.addAll(it.datas)
-                    listAdapter.notifyDataSetChanged()
-                    binding.list.visibility = View.VISIBLE
-                })
-        }
-
     }
 }
 

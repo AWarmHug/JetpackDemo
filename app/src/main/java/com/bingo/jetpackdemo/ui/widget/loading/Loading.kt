@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.databinding.DataBindingUtil
+import com.bingo.jetpackdemo.AppException
 import com.bingo.jetpackdemo.R
 import com.bingo.jetpackdemo.databinding.LoadingLayoutBinding
 import com.bingo.jetpackdemo.databinding.LoadingViewBinding
@@ -20,7 +21,7 @@ interface Loading {
         companion object {
             val start = Start()
             val dismiss = Dismiss()
-            fun fail(cause: Throwable): Fail {
+            fun fail(cause: AppException): Fail {
                 return Fail(cause)
             }
         }
@@ -29,7 +30,9 @@ interface Loading {
 
         class Dismiss : State()
 
-        class Fail(val cause: Throwable) : State()
+        class Fail(val cause: AppException) : State(){
+
+        }
     }
 }
 
@@ -48,13 +51,13 @@ abstract class LoadingV @JvmOverloads constructor(
                 dismiss()
             }
             is Loading.State.Fail -> {
-                showFail(state.cause)
+                fail(state.cause)
             }
         }
     }
 
     protected abstract fun start()
-    protected abstract fun showFail(cause: Throwable)
+    protected abstract fun fail(cause: AppException)
     protected abstract fun dismiss()
 }
 
@@ -77,7 +80,7 @@ abstract class LoadingD constructor(
     }
 
     abstract fun start()
-    abstract fun showFail(cause: Throwable)
+    abstract fun showFail(cause: AppException)
 }
 
 class LoadingView @JvmOverloads constructor(
@@ -98,12 +101,17 @@ class LoadingView @JvmOverloads constructor(
         binding.tvMsg.text = "正在加载..."
     }
 
-    public override fun showFail(cause: Throwable) {
+    public override fun fail(cause: AppException) {
         visibility = VISIBLE
         binding.lottie.setAnimation(R.raw.loading_error)
         binding.lottie.repeatCount = 1
         binding.lottie.playAnimation()
         binding.tvMsg.text = "加载失败！！！"
+        binding.root.setOnClickListener {
+            cause.block?.let {
+                it()
+            }
+        }
     }
 
     public override fun dismiss() {
@@ -134,12 +142,17 @@ class LoadingViewH @JvmOverloads constructor(
         binding.tvMsg.text = "正在加载..."
     }
 
-    override fun showFail(cause: Throwable) {
+    override fun fail(cause: AppException) {
         visibility = VISIBLE
         binding.lottie.setAnimation(R.raw.loading_error)
         binding.lottie.repeatCount = 1
         binding.lottie.playAnimation()
         binding.tvMsg.text = "加载失败！！！"
+        binding.root.setOnClickListener {
+            cause.block?.let {
+                it()
+            }
+        }
     }
 
     override fun dismiss() {
@@ -168,9 +181,9 @@ class LoadingLayout @JvmOverloads constructor(
         binding.loadingView.start()
     }
 
-    public override fun showFail(cause: Throwable) {
+    public override fun fail(cause: AppException) {
         visibility = VISIBLE
-        binding.loadingView.showFail(cause)
+        binding.loadingView.fail(cause)
     }
 
     public override fun dismiss() {
@@ -198,8 +211,8 @@ class LoadingDialog(context: Context) : LoadingD(context) {
         loadingView.start()
     }
 
-    override fun showFail(cause: Throwable) {
-        loadingView.showFail(cause)
+    override fun showFail(cause: AppException) {
+        loadingView.fail(cause)
     }
 
     override fun dismiss() {
