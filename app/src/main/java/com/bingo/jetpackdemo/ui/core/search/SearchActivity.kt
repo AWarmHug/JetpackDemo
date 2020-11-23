@@ -20,6 +20,7 @@ import com.bingo.jetpackdemo.data.dao.SearchContent
 import com.bingo.jetpackdemo.data.entity.wan.Article
 import com.bingo.jetpackdemo.databinding.*
 import com.bingo.jetpackdemo.ui.core.articledetail.ArticleDetailActivity
+import com.bingo.jetpackdemo.ui.widget.loading.Loading
 import com.bingo.jetpackdemo.utils.KeyboardUtils
 
 class SearchActivity : DataBindingAppCompatActivity() {
@@ -55,10 +56,15 @@ class SearchActivity : DataBindingAppCompatActivity() {
                 }
             })
         }
+        viewViewModel.loading.observe(this, Observer {
+            println("*************$it")
+            binding.loading.setState(it)
+        })
 
         viewViewModel.hotContent().observe(this@SearchActivity, Observer {
             if (it.searchContents.isNotEmpty()) {
-
+                binding.tvRecent.visibility = View.VISIBLE
+                binding.flexRecent.visibility = View.VISIBLE
                 it.searchContents.forEach { searchContent ->
                     val text = LayoutInflater.from(this).inflate(
                         R.layout.search_activity_recent_search_view_item,
@@ -66,8 +72,15 @@ class SearchActivity : DataBindingAppCompatActivity() {
                         false
                     ) as TextView
                     text.text = searchContent.content
+                    text.setOnClickListener {
+                        binding.search.binding.etContent.setText(text.text)
+                        binding.search.binding.btnSearch.performClick()
+                    }
                     binding.flexRecent.addView(text)
                 }
+            } else {
+                binding.tvRecent.visibility = View.GONE
+                binding.flexRecent.visibility = View.GONE
             }
             it.hotKeys.forEach { hotKey ->
                 val keyBinding: SearchActivityPopularKeyItemBinding = DataBindingUtil.inflate(

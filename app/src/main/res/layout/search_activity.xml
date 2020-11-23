@@ -50,6 +50,7 @@
                     android:paddingRight="16dp">
 
                     <TextView
+                        android:id="@+id/tvRecent"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:drawablePadding="8dp"
@@ -126,6 +127,12 @@
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:visibility="gone" />
+
+            <com.bingo.jetpackdemo.ui.widget.loading.LoadingLayout
+                android:id="@+id/loading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:visibility="gone" />
         </FrameLayout>
 
     </LinearLayout>

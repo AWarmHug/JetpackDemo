@@ -13,22 +13,84 @@ import com.bingo.jetpackdemo.databinding.LoadingLayoutBinding
 import com.bingo.jetpackdemo.databinding.LoadingViewBinding
 
 interface Loading {
-    fun start()
-    fun showFail()
-    fun dismiss()
+
+    fun setState(state: State);
+
+    open class State {
+        companion object {
+            val start = Start()
+            val dismiss = Dismiss()
+            fun fail(cause: Throwable): Fail {
+                return Fail(cause)
+            }
+        }
+
+        class Start : State()
+
+        class Dismiss : State()
+
+        class Fail(val cause: Throwable) : State()
+    }
+}
+
+abstract class LoadingV @JvmOverloads constructor(
+    context: Context,
+    attributeSet: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : FrameLayout(context, attributeSet, defStyleAttr), Loading {
+
+    override fun setState(state: Loading.State) {
+        when (state) {
+            is Loading.State.Start -> {
+                start()
+            }
+            is Loading.State.Dismiss -> {
+                dismiss()
+            }
+            is Loading.State.Fail -> {
+                showFail(state.cause)
+            }
+        }
+    }
+
+    protected abstract fun start()
+    protected abstract fun showFail(cause: Throwable)
+    protected abstract fun dismiss()
+}
+
+abstract class LoadingD constructor(
+    context: Context
+) : Dialog(context), Loading {
+
+    override fun setState(state: Loading.State) {
+        when (state) {
+            is Loading.State.Start -> {
+                start()
+            }
+            is Loading.State.Dismiss -> {
+                dismiss()
+            }
+            is Loading.State.Fail -> {
+                showFail(state.cause)
+            }
+        }
+    }
+
+    abstract fun start()
+    abstract fun showFail(cause: Throwable)
 }
 
 class LoadingView @JvmOverloads constructor(
     context: Context,
     attributeSet: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : FrameLayout(context, attributeSet, defStyleAttr), Loading {
+) : LoadingV(context, attributeSet, defStyleAttr) {
     private val binding = DataBindingUtil.inflate<LoadingViewBinding>(
         LayoutInflater.from(context),
         R.layout.loading_view, this, true
     )
 
-    override fun start() {
+    public override fun start() {
         visibility = VISIBLE
         binding.lottie.setAnimation(R.raw.loading)
         binding.lottie.repeatCount = ValueAnimator.INFINITE
@@ -36,7 +98,7 @@ class LoadingView @JvmOverloads constructor(
         binding.tvMsg.text = "正在加载..."
     }
 
-    override fun showFail() {
+    public override fun showFail(cause: Throwable) {
         visibility = VISIBLE
         binding.lottie.setAnimation(R.raw.loading_error)
         binding.lottie.repeatCount = 1
@@ -44,7 +106,7 @@ class LoadingView @JvmOverloads constructor(
         binding.tvMsg.text = "加载失败！！！"
     }
 
-    override fun dismiss() {
+    public override fun dismiss() {
         visibility = GONE
         binding.lottie.setAnimation(R.raw.loading)
         binding.lottie.repeatCount = 0
@@ -58,7 +120,7 @@ class LoadingViewH @JvmOverloads constructor(
     context: Context,
     attributeSet: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : FrameLayout(context, attributeSet, defStyleAttr), Loading {
+) : LoadingV(context, attributeSet, defStyleAttr) {
     private val binding = DataBindingUtil.inflate<LoadingViewBinding>(
         LayoutInflater.from(context),
         R.layout.loading_view_h, this, true
@@ -72,7 +134,7 @@ class LoadingViewH @JvmOverloads constructor(
         binding.tvMsg.text = "正在加载..."
     }
 
-    override fun showFail() {
+    override fun showFail(cause: Throwable) {
         visibility = VISIBLE
         binding.lottie.setAnimation(R.raw.loading_error)
         binding.lottie.repeatCount = 1
@@ -94,31 +156,31 @@ class LoadingLayout @JvmOverloads constructor(
     context: Context,
     attributeSet: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : FrameLayout(context, attributeSet, defStyleAttr), Loading {
+) : LoadingV(context, attributeSet, defStyleAttr), Loading {
 
     private val binding = DataBindingUtil.inflate<LoadingLayoutBinding>(
         LayoutInflater.from(context),
         R.layout.loading_layout, this, true
     )
 
-    override fun start() {
+    public override fun start() {
         visibility = VISIBLE
         binding.loadingView.start()
     }
 
-    override fun showFail() {
+    public override fun showFail(cause: Throwable) {
         visibility = VISIBLE
-        binding.loadingView.showFail()
+        binding.loadingView.showFail(cause)
     }
 
-    override fun dismiss() {
+    public override fun dismiss() {
         visibility = GONE
         binding.loadingView.dismiss()
     }
 
 }
 
-class LoadingDialog(context: Context) : Dialog(context), Loading {
+class LoadingDialog(context: Context) : LoadingD(context) {
     val loadingView = LoadingView(context)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -136,8 +198,8 @@ class LoadingDialog(context: Context) : Dialog(context), Loading {
         loadingView.start()
     }
 
-    override fun showFail() {
-        loadingView.showFail()
+    override fun showFail(cause: Throwable) {
+        loadingView.showFail(cause)
     }
 
     override fun dismiss() {

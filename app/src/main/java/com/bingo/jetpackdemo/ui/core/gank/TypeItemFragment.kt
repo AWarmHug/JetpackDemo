@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bingo.jetpackdemo.EmptyException
 import com.bingo.jetpackdemo.R
 import com.bingo.jetpackdemo.base.DataBindingFragment
 import com.bingo.jetpackdemo.data.entity.Type
@@ -80,7 +81,7 @@ class TypeItemFragment(val type: Type, val category: Category) : DataBindingFrag
                     binding.list.isLoadMoreAble = false
                 }
             } ?: apply {
-                binding.loadingLayout.showFail()
+                binding.loadingLayout.showFail(EmptyException())
             }
         })
     }

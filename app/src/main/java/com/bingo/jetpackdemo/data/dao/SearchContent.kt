@@ -3,7 +3,7 @@ package com.bingo.jetpackdemo.data.dao
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
-@Entity(tableName = "SearchContent")
+@Entity(tableName = "SearchContent",indices =[Index(value = ["content"],unique = true)])
 data class SearchContent(
 
     @ColumnInfo(name = "content") var content: String,
