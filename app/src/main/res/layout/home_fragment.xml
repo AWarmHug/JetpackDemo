@@ -10,7 +10,8 @@
 
     </data>
 
-    <FrameLayout
+    <com.bingo.jetpackdemo.ui.widget.loading.LoadingLayout
+        android:id="@+id/loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -59,11 +60,6 @@
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-        <com.bingo.jetpackdemo.ui.widget.loading.LoadingLayout
-            android:id="@+id/loading"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </FrameLayout>
+    </com.bingo.jetpackdemo.ui.widget.loading.LoadingLayout>
 
 </layout>

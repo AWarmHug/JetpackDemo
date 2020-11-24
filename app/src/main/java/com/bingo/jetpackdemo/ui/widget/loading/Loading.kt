@@ -6,6 +6,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.FrameLayout
 import androidx.databinding.DataBindingUtil
 import com.bingo.jetpackdemo.AppException
@@ -30,7 +31,7 @@ interface Loading {
 
         class Dismiss : State()
 
-        class Fail(val cause: AppException) : State(){
+        class Fail(val cause: AppException) : State() {
 
         }
     }
@@ -173,21 +174,23 @@ class LoadingLayout @JvmOverloads constructor(
 
     private val binding = DataBindingUtil.inflate<LoadingLayoutBinding>(
         LayoutInflater.from(context),
-        R.layout.loading_layout, this, true
+        R.layout.loading_layout, this, false
     )
 
+    override fun onFinishInflate() {
+        super.onFinishInflate()
+        addView(binding.root)
+    }
+
     public override fun start() {
-        visibility = VISIBLE
         binding.loadingView.start()
     }
 
     public override fun fail(cause: AppException) {
-        visibility = VISIBLE
         binding.loadingView.fail(cause)
     }
 
     public override fun dismiss() {
-        visibility = GONE
         binding.loadingView.dismiss()
     }
 
