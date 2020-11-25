@@ -6,7 +6,6 @@ import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.FrameLayout
 import androidx.databinding.DataBindingUtil
 import com.bingo.jetpackdemo.AppException
@@ -177,9 +176,11 @@ class LoadingLayout @JvmOverloads constructor(
         R.layout.loading_layout, this, false
     )
 
-    override fun onFinishInflate() {
-        super.onFinishInflate()
+    private var mCircleViewIndex: Int = -1
+
+    init {
         addView(binding.root)
+        isChildrenDrawingOrderEnabled = true;
     }
 
     public override fun start() {
@@ -192,6 +193,34 @@ class LoadingLayout @JvmOverloads constructor(
 
     public override fun dismiss() {
         binding.loadingView.dismiss()
+    }
+
+    override fun getChildDrawingOrder(childCount: Int, i: Int): Int {
+        return if (mCircleViewIndex < 0) {
+            i
+        } else if (i == childCount - 1) {
+            // Draw the selected child last
+            mCircleViewIndex
+        } else if (i >= mCircleViewIndex) {
+            // Move the children after the selected child earlier one
+            i + 1
+        } else {
+            // Keep the children before the selected child the same
+            i
+        }
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        mCircleViewIndex = -1
+        // Get the index of the circleview.
+        // Get the index of the circleview.
+        for (index in 0 until childCount) {
+            if (getChildAt(index) === binding.root) {
+                mCircleViewIndex = index
+                break
+            }
+        }
     }
 
 }
