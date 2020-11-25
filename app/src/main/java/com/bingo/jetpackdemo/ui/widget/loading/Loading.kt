@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.databinding.DataBindingUtil
@@ -195,18 +196,22 @@ class LoadingLayout @JvmOverloads constructor(
         binding.loadingView.dismiss()
     }
 
-    override fun getChildDrawingOrder(childCount: Int, i: Int): Int {
+    override fun getChildDrawingOrder(childCount: Int, drawingPosition: Int): Int {
+        Log.d(
+            "**********",
+            "getChildDrawingOrder: childCount=$childCount,drawingPosition=$drawingPosition,mCircleViewIndex=$mCircleViewIndex"
+        )
         return if (mCircleViewIndex < 0) {
-            i
-        } else if (i == childCount - 1) {
+            drawingPosition
+        } else if (drawingPosition == childCount - 1) {
             // Draw the selected child last
             mCircleViewIndex
-        } else if (i >= mCircleViewIndex) {
+        } else if (drawingPosition >= mCircleViewIndex) {
             // Move the children after the selected child earlier one
-            i + 1
+            drawingPosition + 1
         } else {
             // Keep the children before the selected child the same
-            i
+            drawingPosition
         }
     }
 
