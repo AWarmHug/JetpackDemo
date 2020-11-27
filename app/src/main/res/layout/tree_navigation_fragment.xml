@@ -10,7 +10,6 @@
             type="com.bingo.jetpackdemo.ui.core.gank.TypeItemViewModel" />
     </data>
 
-
     <com.bingo.jetpackdemo.ui.widget.loading.LoadingLayout
         android:id="@+id/loadingLayout"
         android:layout_width="match_parent"
@@ -32,23 +31,18 @@
 
                 <RadioGroup
                     android:id="@+id/listTitle"
-                    android:layout_width="96dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content" />
             </ScrollView>
 
-            <com.bingo.jetpackdemo.ui.widget.loading.LoadingLayout
-                android:id="@+id/loadingProject"
+            <com.bingo.jetpackdemo.ui.widget.recyclerview.LoadRecyclerView
+                android:id="@+id/list"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <com.bingo.jetpackdemo.ui.widget.recyclerview.LoadRecyclerView
-                    android:id="@+id/list"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </com.bingo.jetpackdemo.ui.widget.loading.LoadingLayout>
+                android:layout_weight="1" />
 
         </LinearLayout>
+
 
     </com.bingo.jetpackdemo.ui.widget.loading.LoadingLayout>
 

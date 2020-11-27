@@ -93,6 +93,10 @@ class TreeArticleFragment : DataBindingFragment() {
             binding.loadingLayout.dismiss()
         })
     }
+
+    override fun getTitle(): String {
+        return "文章"
+    }
 }
 
 private class ListAdapter() : RecyclerView.Adapter<ListAdapter.VH>() {

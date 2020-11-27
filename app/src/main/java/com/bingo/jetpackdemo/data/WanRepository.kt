@@ -57,10 +57,10 @@ class WanRepository(val wan: WanAndroidService) : IWanRepository {
         }
     }
 
-    override suspend fun projectList(pageNum: Int, cid: String?): Flow<ListData<Article>> = flow {
+    override  fun projectList(pageNum: Int, cid: String?): Flow<ListData<Article>> = flow {
         val data = wan.projectList(pageNum, cid).peeling()
         emit(data)
-    }.flowOn(Dispatchers.IO)
+    }
 
     override fun hotKey(): Flow<List<HotKey>> = flow {
         val data = wan.hotKey().peeling()
@@ -75,7 +75,12 @@ class WanRepository(val wan: WanAndroidService) : IWanRepository {
 
     override fun query(pageNum: Int, k: String): Flow<ListData<Article>> = flow {
         val data = wan.query(pageNum, k).peeling()
-        Log.d("*********", "query: "+data)
+        Log.d("*********", "query: " + data)
+        emit(data)
+    }
+
+    override fun navi(): Flow<List<Navi>> = flow {
+        val data = wan.navi().peeling()
         emit(data)
     }
 

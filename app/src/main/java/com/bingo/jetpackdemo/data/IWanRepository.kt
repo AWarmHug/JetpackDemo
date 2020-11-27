@@ -14,12 +14,14 @@ interface IWanRepository {
 
     fun projectTree(): Flow<List<TreeItem>>
 
-    suspend fun projectList(pageNum: Int, cid: String? = null): Flow<ListData<Article>>
+    fun projectList(pageNum: Int, cid: String? = null): Flow<ListData<Article>>
 
     fun hotKey(): Flow<List<HotKey>>
 
     fun articleTop(): Flow<List<Article>>
 
     fun query(pageNum: Int, k: String): Flow<ListData<Article>>
+
+    fun navi(): Flow<List<Navi>>
 
 }

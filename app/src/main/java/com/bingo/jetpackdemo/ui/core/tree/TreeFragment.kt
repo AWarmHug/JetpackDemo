@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.bingo.jetpackdemo.R
 import com.bingo.jetpackdemo.base.DataBindingFragment
-import com.bingo.jetpackdemo.data.remote.Category
 import com.bingo.jetpackdemo.databinding.TreeFragmentBinding
-import com.bingo.jetpackdemo.databinding.TypeFragmentBinding
-import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class TreeFragment : DataBindingFragment() {
 
@@ -21,7 +21,6 @@ class TreeFragment : DataBindingFragment() {
     }
 
     private lateinit var binding: TreeFragmentBinding
-    private var treeProjectPopup: TreeProjectPopup? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,64 +37,55 @@ class TreeFragment : DataBindingFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        treeProjectPopup = TreeProjectPopup(this)
 
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.apply {
-            tab.addTab(tab.newTab().setText("文章"))
-            tab.addTab(tab.newTab().setText("项目"))
-            val article = TreeArticleFragment.newInstance()
-            val project = TreeProjectFragment.newInstance()
-            childFragmentManager
-                .beginTransaction()
-                .add(R.id.fragmentContent, article)
-                .add(R.id.fragmentContent, project)
-                .hide(project)
-                .commit()
-            tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    tab?.apply {
-                        if (position == 0) {
-                            childFragmentManager
-                                .beginTransaction()
-                                .setCustomAnimations(
-                                    R.animator.card_flip_right_in,
-                                    R.animator.card_flip_left_out,
-                                    R.animator.card_flip_left_in,
-                                    R.animator.card_flip_right_out
-                                )
-                                .show(article)
-                                .hide(project)
-                                .commit()
-                        } else {
-                            childFragmentManager
-                                .beginTransaction()
-                                .setCustomAnimations(
-                                    R.animator.card_flip_right_in,
-                                    R.animator.card_flip_left_out,
-                                    R.animator.card_flip_left_in,
-                                    R.animator.card_flip_right_out
-                                )
-                                .show(project)
-                                .hide(article)
-                                .commit()
-                        }
+            pager.adapter =
+                TreeFragmentVpAdapter(
+                    this@TreeFragment
+                )
+            val tabLayoutMediator = TabLayoutMediator(
+                tab, pager, true, false
+            ) { tab, position ->
+                when (position) {
+                    0 -> {
+                        tab.text = "文章"
+                    }
+                    1 -> {
+                        tab.text = "项目"
+                    }
+                    2 -> {
+                        tab.text = "导航"
+                    }
+                    else -> {
+                        tab.text = "文章"
                     }
                 }
-
-                override fun onTabUnselected(tab: TabLayout.Tab?) {
-                }
-
-                override fun onTabReselected(tab: TabLayout.Tab?) {
-                    treeProjectPopup?.apply {
-                        showAsDropDown(binding.tab)
-                    }
-                }
-            })
+            }
+            tabLayoutMediator.attach()
         }
     }
+}
+
+private class TreeFragmentVpAdapter(
+    fragment: TreeFragment
+) : FragmentStateAdapter(fragment) {
+
+    override fun getItemCount(): Int {
+        return 3
+    }
+
+    override fun createFragment(position: Int): Fragment {
+        return when (position) {
+            0 -> TreeArticleFragment.newInstance()
+            1 -> TreeProjectFragment.newInstance()
+            2 -> TreeNavigationFragment.newInstance()
+            else -> TreeArticleFragment.newInstance()
+        }
+    }
+
 
 }

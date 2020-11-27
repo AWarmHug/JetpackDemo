@@ -17,6 +17,20 @@ val Int.sp
             Resources.getSystem().displayMetrics
     ).toInt()
 
+
+val Float.dp
+    get() = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        this,
+        Resources.getSystem().displayMetrics
+    ).toInt()
+val Float.sp
+    get() = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_SP,
+        this.toFloat(),
+        Resources.getSystem().displayMetrics
+    ).toInt()
+
 val Context.widthPixels
 get() = resources.displayMetrics.widthPixels
 

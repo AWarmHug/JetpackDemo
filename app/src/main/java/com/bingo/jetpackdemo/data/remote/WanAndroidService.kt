@@ -39,6 +39,9 @@ interface WanAndroidService {
     @GET("hotkey/json")
     suspend fun hotKey(): WanResponse<List<HotKey>>
 
+    @GET("navi/json")
+    suspend fun navi(): WanResponse<List<Navi>>
+
     @FormUrlEncoded
     @POST("article/query/{pageNum}/json")
     suspend fun query(

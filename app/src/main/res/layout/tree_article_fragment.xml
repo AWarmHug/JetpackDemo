@@ -19,12 +19,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:baselineAligned="false"
-            android:orientation="horizontal">
+            android:divider="@drawable/divider_h_1px"
+            android:orientation="horizontal"
+            android:showDividers="middle">
 
             <ScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimary"
                 android:scrollbars="none">
 
                 <RadioGroup
@@ -36,14 +37,12 @@
             <ScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@color/colorAccent"
                 android:scrollbars="none">
 
                 <RadioGroup
                     android:id="@+id/treeList2"
                     android:layout_width="68dp"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorAccent" />
+                    android:layout_height="wrap_content" />
             </ScrollView>
 
             <FrameLayout

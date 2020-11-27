@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -49,13 +50,34 @@ class TreeProjectFragment : DataBindingFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        projectViewModel.projectList.observe(viewLifecycleOwner, {
-            projectListAdapter.list.clear()
-            projectListAdapter.list.addAll(it.datas)
-            projectListAdapter.notifyDataSetChanged()
-            binding.loadingList.dismiss()
+        projectViewModel.loading.observe(viewLifecycleOwner, Observer {
+            binding.loadingLayout.setState(it)
         })
+        projectViewModel.loadingProject.observe(viewLifecycleOwner, Observer {
+            binding.loadingProject.setState(it)
+        })
+        projectViewModel.projectTree()
+            .observe(viewLifecycleOwner, Observer {
+                it.forEach {
+                    val rb = LayoutInflater.from(context)
+                        .inflate(R.layout.tree_item_view, binding.listTitle, false) as RadioButton
+                    rb.text = it.name
+                    rb.setOnCheckedChangeListener { buttonView, isChecked ->
+                        if (isChecked) {
+                            projectViewModel.projectList(0, it.id.toString())
+                                .observe(viewLifecycleOwner, {
+                                    projectListAdapter.list.clear()
+                                    projectListAdapter.list.addAll(it.datas)
+                                    projectListAdapter.notifyDataSetChanged()
+                                })
+                        }
+                    }
+                    binding.listTitle.addView(rb)
+                }
+                if (binding.listTitle.childCount != 0) {
+                    binding.listTitle.check(binding.listTitle.getChildAt(0).id)
+                }
+            })
     }
 }
 

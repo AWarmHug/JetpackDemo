@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bingo.jetpackdemo.ui.imageloader.GlideImageLoader
+import com.bingo.jetpackdemo.ui.widget.loading.LoadingLayout
 import com.chebada.utils.ktx.dp
 import com.chebada.utils.ktx.widthPixels
 import com.warm.flowlayout.FlowLayout
