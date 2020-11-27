@@ -34,16 +34,6 @@
 
         </LinearLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabFavorites"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="72dp"
-            android:contentDescription="收藏"
-            android:src="@drawable/ic_vec_favorites" />
-
     </FrameLayout>
 
 </layout>

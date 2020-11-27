@@ -39,7 +39,6 @@ class MainActivity : DataBindingAppCompatActivity() {
         }
     }
 
-
     companion object {
         const val TAG = "MainActivity_TAG"
     }
