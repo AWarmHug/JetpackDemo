@@ -79,3 +79,8 @@ private fun createImageView(
     }
     return imageView
 }
+
+@BindingAdapter("url")
+fun bindingUrl(imageView: ImageView, url: String) {
+    GlideImageLoader.loadImage(imageView.context, imageView, url)
+}

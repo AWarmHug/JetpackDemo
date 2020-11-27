@@ -17,4 +17,8 @@
         android:id="@+id/girl"
         android:icon="@drawable/ic_vec_girl"
         android:title="尤物" />
+    <item
+        android:id="@+id/mine"
+        android:icon="@drawable/ic_vec_mine"
+        android:title="我的" />
 </menu>

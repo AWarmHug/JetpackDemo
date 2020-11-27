@@ -125,7 +125,7 @@ public class LineItemDecoration extends RecyclerView.ItemDecoration {
         final int top = parent.getPaddingTop();
         final int bottom = parent.getMeasuredHeight() - parent.getPaddingBottom();
         final int childCount = parent.getChildCount();
-        for (int i = 0; i < childCount + 1; i++) {
+        for (int i = 0; i < childCount - 1; i++) {
             final View child = parent.getChildAt(i);
             RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
             final int left = child.getRight() + layoutParams.rightMargin;

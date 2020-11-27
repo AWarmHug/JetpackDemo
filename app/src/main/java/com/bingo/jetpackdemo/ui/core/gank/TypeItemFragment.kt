@@ -13,7 +13,6 @@ import com.bingo.jetpackdemo.base.DataBindingFragment
 import com.bingo.jetpackdemo.data.entity.Type
 import com.bingo.jetpackdemo.data.remote.Category
 import com.bingo.jetpackdemo.databinding.TypeItemFragmentBinding
-import com.bingo.jetpackdemo.ui.core.ArticleListAdapter
 
 class TypeItemFragment(val type: Type, val category: Category) : DataBindingFragment() {
 

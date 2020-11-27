@@ -121,7 +121,8 @@ public class GlideImageLoader {
     public static void loadImage(Context context, View view, Object object) {
         GlideRequest<Drawable> glide = GlideApp.with(context)
                 .load(object)
-                .centerInside();
+                .transition(DrawableTransitionOptions.withCrossFade(300))
+                .centerCrop();
         if (view instanceof ImageView) {
             glide.into((ImageView) view);
         } else {

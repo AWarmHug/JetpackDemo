@@ -10,6 +10,7 @@ import com.bingo.jetpackdemo.databinding.MainActivityBinding
 import com.bingo.jetpackdemo.ui.core.girl.GirlFragment
 import com.bingo.jetpackdemo.ui.core.home.HomeFragment
 import com.bingo.jetpackdemo.ui.core.gank.TypeFragment
+import com.bingo.jetpackdemo.ui.core.mine.MineFragment
 import com.bingo.jetpackdemo.ui.core.tree.TreeArticleFragment
 import com.bingo.jetpackdemo.ui.core.tree.TreeFragment
 
@@ -30,7 +31,8 @@ class MainActivity : DataBindingAppCompatActivity() {
                     R.id.type -> pager.setCurrentItem(1, false)
                     R.id.gank -> pager.setCurrentItem(2, false)
                     R.id.girl -> pager.setCurrentItem(3, false)
-                    else -> pager.setCurrentItem(3, false)
+                    R.id.mine -> pager.setCurrentItem(4, false)
+                    else -> pager.setCurrentItem(4, false)
                 }
                 return@setOnNavigationItemSelectedListener true
             }
@@ -46,7 +48,7 @@ class MainActivity : DataBindingAppCompatActivity() {
 private class FragmentAdapter(mainActivity: MainActivity) : FragmentStateAdapter(mainActivity) {
 
     override fun getItemCount(): Int {
-        return 3
+        return 5
     }
 
     override fun createFragment(position: Int): Fragment {
@@ -56,7 +58,8 @@ private class FragmentAdapter(mainActivity: MainActivity) : FragmentStateAdapter
             1 -> TreeFragment.newInstance()
             2 -> TypeFragment.newInstance()
             3 -> GirlFragment.newInstance()
-            else -> GirlFragment.newInstance()
+            4 -> MineFragment.newInstance()
+            else -> MineFragment.newInstance()
         }
     }
 
