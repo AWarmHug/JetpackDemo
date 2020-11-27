@@ -9,7 +9,8 @@
 
     </data>
 
-    <FrameLayout
+    <com.bingo.jetpackdemo.ui.widget.loading.LoadingLayout
+        android:id="@+id/loadingLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -24,10 +25,5 @@
                 android:layout_height="match_parent" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <com.bingo.jetpackdemo.ui.widget.loading.LoadingLayout
-            android:id="@+id/loadingLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </FrameLayout>
+    </com.bingo.jetpackdemo.ui.widget.loading.LoadingLayout>
 </layout>

@@ -26,38 +26,25 @@ class WanRepository(val wan: WanAndroidService) : IWanRepository {
     }
 
     override fun article(pageNum: Int, cid: String?): Flow<ListData<Article>> = flow {
-        val wanResponse = wan.article(pageNum, cid)
-        if (wanResponse.isSuccess) {
-            emit(wanResponse.data)
-        } else {
-            throw ResultException()
-        }
+        val data = wan.article(pageNum, cid).peeling()
+        emit(data)
     }
 
     override fun tree(): Flow<List<TreeItem>> = flow {
-        val wanResponse = wan.tree()
-        if (wanResponse.isSuccess) {
-            emit(wanResponse.data)
-        } else {
-            throw ResultException()
-        }
+        val data = wan.tree().peeling()
+        emit(data)
     }
 
     override fun projectTree(): Flow<List<TreeItem>> = flow {
-        val wanResponse = wan.projectTree()
-        if (wanResponse.isSuccess) {
-            wanResponse.data.map {
-                it.name = it.name.replace("amp;", "")
-                return@map it
-            }
-
-            emit(wanResponse.data)
-        } else {
-            throw ResultException()
+        val data = wan.projectTree().peeling()
+        data.map {
+            it.name = it.name.replace("amp;", "")
+            return@map it
         }
+        emit(data)
     }
 
-    override  fun projectList(pageNum: Int, cid: String?): Flow<ListData<Article>> = flow {
+    override fun projectList(pageNum: Int, cid: String?): Flow<ListData<Article>> = flow {
         val data = wan.projectList(pageNum, cid).peeling()
         emit(data)
     }

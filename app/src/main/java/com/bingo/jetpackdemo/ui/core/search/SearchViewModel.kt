@@ -38,16 +38,19 @@ class SearchViewModel : ViewModel() {
             .onStart {
                 loading.postValue(Loading.State.start)
             }
-            .onCompletion {
-                loading.postValue(Loading.State.dismiss)
+            .onCompletion { cause ->
+                if (cause != null) {
+                    if (cause is AppException) {
+                        loading.postValue(Loading.State.fail(cause))
+                    } else {
+                        val appException = AppException(cause)
+                        loading.postValue(Loading.State.fail(appException))
+                    }
+                } else {
+                    loading.postValue(Loading.State.dismiss)
+                }
             }
             .catch { cause ->
-                if (cause is AppException) {
-                    loading.postValue(Loading.State.fail(cause))
-                } else {
-                    val appException = AppException(cause)
-                    loading.postValue(Loading.State.fail(appException))
-                }
             }
             .asLiveData()
     }

@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#039BE5</color>
-    <color name="colorPrimaryDark">#1E88E5</color>
-    <color name="colorAccent">#00ACC1</color>
-    <color name="colorAccent2">#37a087</color>
-    <color name="colorPrimaryInverse">#9732b16c</color>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#F0F0F0</color>
+    <color name="colorAccent">#555555</color>
+    <color name="colorAccent2">#999999</color>
+    <color name="colorPrimaryInverse">#AEAEAE</color>
 
     <color name="bg_inverse">#D7D7D7</color>
     <color name="bg_white">#ffffff</color>
     <color name="bg_grey">#F5F5F5</color>
+    <color name="bg_dark">#444444</color>
+    <color name="bg_dark_light">#555555</color>
 
     <color name="text_dark">#444444</color>
     <color name="text_dark_light">#555555</color>

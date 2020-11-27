@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bingo.jetpackdemo.EmptyException
@@ -14,7 +15,24 @@ import com.bingo.jetpackdemo.data.entity.Type
 import com.bingo.jetpackdemo.data.remote.Category
 import com.bingo.jetpackdemo.databinding.TypeItemFragmentBinding
 
-class TypeItemFragment(val type: Type, val category: Category) : DataBindingFragment() {
+class TypeItemFragment() : DataBindingFragment() {
+    private val type: Type by lazy {
+        arguments?.getParcelable("type")!!
+    }
+    private val category: Category by lazy {
+        arguments?.getSerializable("category") as Category
+    }
+
+    companion object {
+        fun newInstance(type: Type, category: Category): TypeItemFragment {
+            val fragment = TypeItemFragment()
+            val bundle = Bundle()
+            bundle.putParcelable("type", type)
+            bundle.putSerializable("category", category)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
 
     private lateinit var binding: TypeItemFragmentBinding
     private val viewModel: TypeItemViewModel by viewModels()
@@ -58,10 +76,9 @@ class TypeItemFragment(val type: Type, val category: Category) : DataBindingFrag
     }
 
     private fun data(page: Int) {
-        if (page == 0) {
-            binding.loadingLayout.start()
-        }
-
+        viewModel.loading.observe(viewLifecycleOwner, Observer {
+            binding.loadingLayout.setState(it)
+        })
         viewModel.data(category.api, type.type, page).observe(viewLifecycleOwner, {
             it.data?.apply {
                 if (isNotEmpty()) {
@@ -69,7 +86,6 @@ class TypeItemFragment(val type: Type, val category: Category) : DataBindingFrag
                         listAdapter.list.clear()
                         listAdapter.list.addAll(this)
                         listAdapter.notifyDataSetChanged()
-                        binding.loadingLayout.dismiss()
                         binding.swipe.isRefreshing = false
                     } else {
                         listAdapter.list.addAll(this)
@@ -79,16 +95,8 @@ class TypeItemFragment(val type: Type, val category: Category) : DataBindingFrag
                 } else {
                     binding.list.isLoadMoreAble = false
                 }
-            } ?: apply {
-                binding.loadingLayout.fail(EmptyException())
             }
         })
-    }
-
-    companion object {
-        fun newInstance(type: Type, category: Category): TypeItemFragment {
-            return TypeItemFragment(type, category)
-        }
     }
 
 }

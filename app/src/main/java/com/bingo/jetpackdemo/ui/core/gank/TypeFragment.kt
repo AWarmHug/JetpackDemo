@@ -50,24 +50,12 @@ class TypeFragment : DataBindingFragment() {
                         if (position == 0) {
                             childFragmentManager
                                 .beginTransaction()
-                                .setCustomAnimations(
-                                    R.animator.card_flip_right_in,
-                                    R.animator.card_flip_left_out,
-                                    R.animator.card_flip_left_in,
-                                    R.animator.card_flip_right_out
-                                )
                                 .show(article)
                                 .hide(ganhuo)
                                 .commit()
                         } else {
                             childFragmentManager
                                 .beginTransaction()
-                                .setCustomAnimations(
-                                    R.animator.card_flip_right_in,
-                                    R.animator.card_flip_left_out,
-                                    R.animator.card_flip_left_in,
-                                    R.animator.card_flip_right_out
-                                )
                                 .show(ganhuo)
                                 .hide(article)
                                 .commit()

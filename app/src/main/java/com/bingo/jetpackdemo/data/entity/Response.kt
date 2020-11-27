@@ -21,13 +21,14 @@ data class Banner(
     val url: String
 )
 
+@Parcelize
 data class Type(
     val _id: String,
     val coverImageUrl: String,
     val desc: String,
     val title: String,
     val type: String
-)
+) : Parcelable
 
 @Parcelize
 data class Article(

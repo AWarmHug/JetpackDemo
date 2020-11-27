@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.ColorUtils;
 
 import com.bingo.jetpackdemo.R;
 import com.google.android.material.appbar.AppBarLayout;
@@ -48,9 +49,9 @@ public class ToolbarBehavior extends CoordinatorLayout.Behavior<Toolbar> {
                 int a = (int) (alpha * 255);
                 child.getBackground().mutate().setAlpha(a);
             }
-            float red = Math.abs(3 - 255) * alpha + 3;
-            float green = Math.abs(155 - 255) * alpha + 155;
-            float blue = Math.abs(229 - 255) * alpha + 229;
+            float red = 255-( 255- 68) * alpha ;
+            float green =255- (255 - 68) * alpha ;
+            float blue =255- (255 - 68) * alpha;
 
             int color = Color.argb(255, (int) red, (int) green, (int) blue);
 
