@@ -1,42 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFFFFF</color>
-    <color name="colorPrimaryDark">#F0F0F0</color>
-    <color name="colorAccent">#555555</color>
-    <color name="colorAccent2">#999999</color>
-    <color name="colorPrimaryInverse">#AEAEAE</color>
-
-    <color name="bg_inverse">#D7D7D7</color>
-    <color name="bg_white">#ffffff</color>
-    <color name="bg_grey">#F5F5F5</color>
-    <color name="bg_dark">#444444</color>
-    <color name="bg_dark_light">#555555</color>
-
-    <color name="text_dark">#444444</color>
-    <color name="text_dark_light">#555555</color>
-    <color name="text_light">#999999</color>
-    <color name="text_light_light">#A0A0A0</color>
-    <color name="text_inverse">#AEAEAE</color>
-    <color name="text_yellow">#FFBC3D</color>
-    <color name="text_white">@color/white</color>
-    <color name="text_grey">#D7D7D7</color>
-
-
-    <color name="line">@color/bg_grey</color>
-
-    <color name="dialog_icon">#acc0cf</color>
-    <color name="dialog_icon_half">#8ea8c0d0</color>
-
-    <color name="grey_count">#e6ebee</color>
+    <color name="black">#444444</color>
+    <color name="black_dark_light">#555555</color>
+    <color name="black_light">#999999</color>
+    <color name="black_light_light">#A0A0A0</color>
+    <color name="black_inverse">#AEAEAE</color>
 
     <color name="grey">#ffdedede</color>
     <color name="grey_half">#7fdedede</color>
     <color name="grey_dark">#cbcccd</color>
 
-
     <color name="red">#E70E0E</color>
-    <color name="red_dark">#ffcd3a3a</color>
     <color name="red_light">#ffd1d4</color>
+    <color name="red_dark">#ffcd3a3a</color>
 
     <color name="transparent">#00000000</color>
 
@@ -47,6 +23,34 @@
     <color name="green">#2ba900</color>
     <color name="green_dark">#ff6d9b00</color>
 
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#F0F0F0</color>
+    <color name="colorAccent">#555555</color>
+    <color name="colorAccent2">#999999</color>
+    <color name="colorPrimaryInverse">#AEAEAE</color>
+    <color name="colorOnPrimary">#444444</color>
+
+    <color name="bg_inverse">#D7D7D7</color>
+    <color name="bg_white">#ffffff</color>
+    <color name="bg_grey">#F5F5F5</color>
+
+    <color name="bg_dark">#444444</color>
+    <color name="bg_dark_light">#555555</color>
+
+    <color name="text_dark">@color/black</color>
+    <color name="text_dark_light">@color/black_dark_light</color>
+    <color name="text_light">@color/black_light</color>
+    <color name="text_light_light">@color/black_light_light</color>
+    <color name="text_inverse">@color/black_inverse</color>
+    <color name="text_white">@color/white</color>
+    <color name="text_grey">#D7D7D7</color>
+
+    <color name="line">@color/bg_grey</color>
+
+    <color name="dialog_icon">#acc0cf</color>
+    <color name="dialog_icon_half">#8ea8c0d0</color>
+
+    <color name="grey_count">#e6ebee</color>
 
     <color name="rippleColor">#46000000</color>
 
