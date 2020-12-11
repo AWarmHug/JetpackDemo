@@ -1,4 +1,4 @@
-package com.bingo.jetpackdemo.ui.core.gank
+package com.bingo.jetpackdemo.ui.core.tree.gank
 
 import androidx.lifecycle.*
 import com.bingo.jetpackdemo.AppException

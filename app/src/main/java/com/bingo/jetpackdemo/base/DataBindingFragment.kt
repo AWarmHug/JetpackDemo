@@ -9,7 +9,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
-import com.bingo.jetpackdemo.ui.core.gank.TypeItemViewModel
+import com.bingo.jetpackdemo.ui.core.tree.gank.TypeItemViewModel
 import com.bingo.jetpackdemo.ui.core.tree.TreeArticleViewModel
 
 open class DataBindingFragment : Fragment() {

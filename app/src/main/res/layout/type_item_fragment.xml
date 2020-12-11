@@ -5,7 +5,7 @@
 
         <variable
             name="vm"
-            type="com.bingo.jetpackdemo.ui.core.gank.TypeItemViewModel" />
+            type="com.bingo.jetpackdemo.ui.core.tree.gank.TypeItemViewModel" />
 
     </data>
 

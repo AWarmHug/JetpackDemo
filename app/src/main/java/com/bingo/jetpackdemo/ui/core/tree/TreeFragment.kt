@@ -10,6 +10,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.bingo.jetpackdemo.R
 import com.bingo.jetpackdemo.base.DataBindingFragment
 import com.bingo.jetpackdemo.databinding.TreeFragmentBinding
+import com.bingo.jetpackdemo.ui.core.tree.gank.TypeFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
 class TreeFragment : DataBindingFragment() {
@@ -60,6 +61,9 @@ class TreeFragment : DataBindingFragment() {
                     2 -> {
                         tab.text = "导航"
                     }
+                    3 -> {
+                        tab.text = "干货"
+                    }
                     else -> {
                         tab.text = "文章"
                     }
@@ -75,7 +79,7 @@ private class TreeFragmentVpAdapter(
 ) : FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int {
-        return 3
+        return 4
     }
 
     override fun createFragment(position: Int): Fragment {
@@ -83,7 +87,8 @@ private class TreeFragmentVpAdapter(
             0 -> TreeArticleFragment.newInstance()
             1 -> TreeProjectFragment.newInstance()
             2 -> TreeNavigationFragment.newInstance()
-            else -> TreeArticleFragment.newInstance()
+            3 -> TypeFragment.newInstance()
+            else -> TypeFragment.newInstance()
         }
     }
 

@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabMode="scrollable"
+            android:elevation="0dp"
             app:tabTextAppearance="@style/TextAppearance.App.Toolbar.Title" />
 
         <androidx.viewpager2.widget.ViewPager2

@@ -1,39 +1,17 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_module/square.dart';
 
-void main() => runApp(_widgetForRoute(window.defaultRouteName));
-
-Widget _widgetForRoute(String route) {
-  print('route = $route');
-  switch (route) {
-    case "square":
-      return SquareApp();
-    case 'mine':
-      return MyApp();
-    // case 'route2':
-    //   return _route2();
-    default:
-      return MyApp();
-  }
-}
-
-class MyApp extends StatelessWidget {
+class SquareApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '我的',
+      title: '广场',
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home: MyHomePage(title: '我的'),
-      routes: <String, WidgetBuilder>{
-        '/flight/calendar': (BuildContext b) {
-          return MyHomePage(title: '我的');
-        }
-      },
+      home: MyHomePage(title: '广场'),
     );
   }
 }
@@ -67,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   color: Colors.blue,
                 ),
                 child: Text(
-                  '我的',
+                  '广场',
                   style: Theme.of(context).textTheme.headline4,
                 ),
               ),
