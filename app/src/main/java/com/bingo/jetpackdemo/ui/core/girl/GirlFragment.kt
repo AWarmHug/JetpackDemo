@@ -1,6 +1,8 @@
 package com.bingo.jetpackdemo.ui.core.girl
 
+import android.content.Context
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +10,9 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -19,8 +23,7 @@ import com.bingo.jetpackdemo.data.remote.Category
 import com.bingo.jetpackdemo.databinding.GirlFragmentBinding
 import com.bingo.jetpackdemo.databinding.GirlItemAdapterItemBinding
 import com.bingo.jetpackdemo.databinding.GirlItemFragmentItemBinding
-import com.bingo.jetpackdemo.databinding.HomeItemAdapterItemBinding
-import com.bingo.jetpackdemo.ui.widget.recyclerview.decoration.LineItemDecoration
+import com.bingo.jetpackdemo.ui.widget.recyclerview.decoration.LinearItemDecoration
 import com.chebada.utils.ktx.dp
 
 class GirlFragment : DataBindingFragment() {
@@ -53,15 +56,34 @@ class GirlFragment : DataBindingFragment() {
         binding.apply {
             list.adapter = girlListAdapter
             list.addItemDecoration(
-                LineItemDecoration(
-                    context,
-                    RecyclerView.HORIZONTAL,
-                    10.dp,
+                LinearItemDecoration(
+                    LinearLayoutManager.HORIZONTAL,
+                    8.dp,
                     ContextCompat.getColor(requireContext(), R.color.transparent)
                 )
             )
-            list.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            val scroller = SmoothScroller(requireContext())
+
+            val layoutManager: LinearLayoutManager =
+                object : LinearLayoutManager(context, HORIZONTAL, false) {
+                    override fun smoothScrollToPosition(
+                        view: RecyclerView,
+                        state: RecyclerView.State,
+                        position: Int
+                    ) {
+                        scroller.targetPosition = position
+                        startSmoothScroll(scroller)
+                    }
+                }
+            list.layoutManager = layoutManager
             pager.adapter = girlPagerAdapter
+            pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    girlListAdapter.selectPosition = position
+                    list.smoothScrollToPosition(position)
+                }
+            })
         }
     }
 
@@ -82,6 +104,13 @@ private class GirlListAdapter : RecyclerView.Adapter<GirlListAdapter.VH>() {
 
     val list = mutableListOf<Article>()
 
+    var selectPosition: Int = 0
+        set(value) {
+            notifyItemChanged(field)
+            field = value
+            notifyItemChanged(value)
+        }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val binding: GirlItemAdapterItemBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
@@ -94,6 +123,21 @@ private class GirlListAdapter : RecyclerView.Adapter<GirlListAdapter.VH>() {
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         holder.binding.article = list[position]
+        if (selectPosition == position) {
+            holder.binding.root.setBackgroundColor(
+                ContextCompat.getColor(
+                    holder.binding.root.context,
+                    R.color.colorAccent
+                )
+            )
+        } else {
+            holder.binding.root.setBackgroundColor(
+                ContextCompat.getColor(
+                    holder.binding.root.context,
+                    R.color.transparent
+                )
+            )
+        }
     }
 
     override fun getItemCount(): Int {
@@ -152,4 +196,39 @@ class GirlItemFragment : DataBindingFragment() {
         binding.article = article
     }
 
+}
+
+internal class SmoothScroller(context: Context) :
+    LinearSmoothScroller(context) {
+    private val NEW_MILLISECONDS_PER_PX = 0.2f
+    private val NEW_MILLISECONDS_PER_PX2: Float
+    override fun calculateDtToFit(
+        viewStart: Int,
+        viewEnd: Int,
+        boxStart: Int,
+        boxEnd: Int,
+        snapPreference: Int
+    ): Int {
+        val viewWidth = viewEnd - viewStart
+        val boxWidth = boxEnd - boxStart
+        return 2 * viewWidth - viewStart
+    }
+
+    override fun calculateSpeedPerPixel(displayMetrics: DisplayMetrics): Float {
+        return NEW_MILLISECONDS_PER_PX
+    }
+
+    override fun calculateTimeForScrolling(dx: Int): Int {
+        val PER_PX: Float
+        PER_PX = if (dx < 128 * 20) {
+            NEW_MILLISECONDS_PER_PX
+        } else {
+            NEW_MILLISECONDS_PER_PX2
+        }
+        return Math.ceil((Math.abs(dx).toFloat() * PER_PX).toDouble()).toInt()
+    }
+
+    init {
+        NEW_MILLISECONDS_PER_PX2 = super.calculateSpeedPerPixel(context.resources.displayMetrics)
+    }
 }

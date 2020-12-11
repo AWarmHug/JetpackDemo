@@ -6,11 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bingo.jetpackdemo.R
@@ -19,8 +17,6 @@ import com.bingo.jetpackdemo.data.entity.wan.Article
 import com.bingo.jetpackdemo.databinding.TreeNavigationFragmentBinding
 import com.bingo.jetpackdemo.databinding.WanTreeNavigationAdapterItemBinding
 import com.bingo.jetpackdemo.ui.core.articledetail.ArticleDetailActivity
-import com.bingo.jetpackdemo.ui.widget.recyclerview.decoration.LineItemDecoration
-import com.chebada.utils.ktx.dp
 
 class TreeNavigationFragment : DataBindingFragment() {
 

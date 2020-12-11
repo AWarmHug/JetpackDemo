@@ -14,16 +14,24 @@ import com.bingo.jetpackdemo.data.remote.Category
 import com.bingo.jetpackdemo.databinding.TypeCategoryItemFragmentBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
-class TypeCategoryItemFragment(val category: Category) : DataBindingFragment() {
+class TypeCategoryItemFragment() : DataBindingFragment() {
 
     companion object {
         fun newInstance(category: Category): TypeCategoryItemFragment {
-            return TypeCategoryItemFragment(category)
+            val typeCategoryItemFragment = TypeCategoryItemFragment()
+            val bundle = Bundle()
+            bundle.putSerializable("category", category)
+            typeCategoryItemFragment.arguments = bundle
+            return typeCategoryItemFragment
         }
     }
 
     private lateinit var binding: TypeCategoryItemFragmentBinding
     private val viewModel: TypeViewModel by viewModels()
+
+    private val category: Category by lazy {
+        arguments?.getSerializable("category") as Category
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -13,6 +13,7 @@ import com.bingo.jetpackdemo.ui.core.gank.TypeFragment
 import com.bingo.jetpackdemo.ui.core.mine.MineFragment
 import com.bingo.jetpackdemo.ui.core.tree.TreeArticleFragment
 import com.bingo.jetpackdemo.ui.core.tree.TreeFragment
+import io.flutter.embedding.android.FlutterFragment
 
 class MainActivity : DataBindingAppCompatActivity() {
 
@@ -57,8 +58,12 @@ private class FragmentAdapter(mainActivity: MainActivity) : FragmentStateAdapter
             1 -> TreeFragment.newInstance()
             2 -> TypeFragment.newInstance()
             3 -> GirlFragment.newInstance()
-            4 -> MineFragment.newInstance()
-            else -> MineFragment.newInstance()
+            4 -> FlutterFragment.withNewEngine()
+                .initialRoute("mine")
+                .build()
+            else -> FlutterFragment.withNewEngine()
+                .initialRoute("mine")
+                .build()
         }
     }
 

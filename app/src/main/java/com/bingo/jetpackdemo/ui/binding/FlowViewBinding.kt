@@ -82,5 +82,5 @@ private fun createImageView(
 
 @BindingAdapter("url")
 fun bindingUrl(imageView: ImageView, url: String) {
-    GlideImageLoader.loadImage(imageView.context, imageView, url)
+    GlideImageLoader.loadImage(imageView.context, imageView, url, 4)
 }
