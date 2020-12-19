@@ -6,6 +6,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
+    dataBinding.enabled = true
 
     defaultConfig {
         applicationId "com.bingo.jetpackdemo"
@@ -21,6 +22,10 @@ android {
                 arguments = ["room.schemaLocation":
                                      "$projectDir/schemas".toString()]
             }
+        }
+
+        ndk {
+            abiFilters "armeabi-v7a"
         }
     }
     // 用于测试
@@ -45,9 +50,9 @@ android {
         }
     }
 
-    buildFeatures {
-        dataBinding = true
-    }
+//    buildFeatures {
+//        dataBinding = true
+//    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

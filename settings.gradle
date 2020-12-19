@@ -1,5 +1,3 @@
-include ':hilt'
-include ':startup'
 include ':app'
 rootProject.name = "WanAndroid"
 setBinding(new Binding([gradle: this]))                                 // new
@@ -7,3 +5,5 @@ evaluate(new File(                                                      // new
         settingsDir,                                               // new
         'flutter_module/.android/include_flutter.groovy'                          // new
 ))
+
+include ':flutter_module'

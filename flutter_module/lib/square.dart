@@ -1,6 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'data/article.dart';
+import 'data/list_data.dart';
+import 'data/wan_response.dart';
+import 'repository.dart';
 
 class SquareApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -26,33 +30,45 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  WanResponse<ListData<Article>> data;
+
   @override
   Widget build(BuildContext context) {
+    getUserArticle().then((value) {
+      print(value);
+      setState(() {
+        this.data = value;
+      });
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        backgroundColor: Colors.white,
+        toolbarHeight: 48,
       ),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            ConstrainedBox(
-              constraints: BoxConstraints(
-                  minWidth: double.infinity, //宽度尽可能大
-                  minHeight: 200 //最小高度为50像素
-                  ),
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                ),
-                child: Text(
-                  '广场',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-              ),
-            ),
-          ],
-        ),
+      body: ListView.builder(
+        itemBuilder: (BuildContext context, int index) =>
+            new ArticleItem(data.data.datas[index]),
+        itemCount: data.data.datas.length,
       ),
+    );
+  }
+}
+
+class ArticleItem extends StatelessWidget {
+
+  Article article;
+
+  ArticleItem(this.article);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(article.title),
+        Text(article.title),
+      ],
     );
   }
 }
